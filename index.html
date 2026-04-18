@@ -19,17 +19,14 @@
       --olive: #3B4A2D;
     }
     body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--ink); direction: rtl; min-height: 100vh; }
-
     nav { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 2.5rem; height: 58px; display: flex; align-items: center; }
     .logo { font-size: 1.5rem; font-weight: 900; color: var(--ink); letter-spacing: -1px; }
     .logo span { color: var(--burnt); }
-
     .hero { padding: 4rem 2rem 1rem; text-align: center; max-width: 620px; margin: 0 auto; }
     .hero-title { font-size: clamp(3rem, 7vw, 5rem); font-weight: 900; color: var(--ink); letter-spacing: -3px; line-height: 1; margin-bottom: 0.6rem; }
     .hero-title span { color: var(--burnt); }
     .hero-slogan { font-size: 0.95rem; font-weight: 300; color: var(--ink3); margin-bottom: 3rem; }
     .hero-slogan em { font-style: normal; font-weight: 700; color: var(--burnt); }
-
     .main-card { background: var(--white); border-radius: 20px; border: 1px solid var(--border); padding: 2.2rem; max-width: 580px; margin: 0 auto 1.6rem; }
     .main-q { font-size: 1.15rem; font-weight: 700; color: var(--ink); margin-bottom: 1.4rem; }
     .option-row { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1.8rem; }
@@ -38,24 +35,18 @@
     .opt.sel { border-color: var(--burnt); background: var(--white); }
     .opt-title { font-size: 0.95rem; font-weight: 700; color: var(--ink); }
     .opt-hint { font-size: 0.8rem; font-weight: 300; color: var(--ink3); }
-
     .free-input-wrap { display: none; margin-bottom: 1.4rem; }
     .free-input-wrap.show { display: block; }
-
     .inp { width: 100%; padding: 11px 15px; border: 1.5px solid var(--border); border-radius: 12px; font-family: 'Heebo', sans-serif; font-size: 0.95rem; background: var(--cream); color: var(--ink); direction: rtl; outline: none; transition: border-color 0.15s; resize: none; }
     .inp:focus { border-color: var(--burnt); }
     .inp::placeholder { color: var(--ink3); }
-
     .btn-main { width: 100%; padding: 13px; border-radius: 12px; border: none; background: var(--burnt); font-family: 'Heebo', sans-serif; font-size: 1rem; font-weight: 700; color: white; cursor: pointer; transition: background 0.15s; }
     .btn-main:hover { background: var(--burnt2); }
     .btn-main:disabled { background: var(--border); color: var(--ink3); cursor: not-allowed; }
-
     .sep { display: flex; align-items: center; gap: 1rem; max-width: 580px; margin: 0 auto 1.4rem; color: var(--ink3); font-size: 0.82rem; font-weight: 300; }
     .sep::before, .sep::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-
     .btn-filter { display: block; width: 100%; max-width: 580px; margin: 0 auto 3rem; padding: 12px; border-radius: 12px; border: 1.5px solid var(--border); background: transparent; font-family: 'Heebo', sans-serif; font-size: 0.9rem; font-weight: 500; color: var(--ink2); cursor: pointer; transition: all 0.15s; text-align: center; }
     .btn-filter:hover { border-color: var(--olive); color: var(--olive); }
-
     .wizard-wrap { background: var(--white); border-radius: 20px; border: 1px solid var(--border); padding: 2.2rem; max-width: 580px; margin: 0 auto 3rem; }
     .progress-bar { height: 3px; background: var(--border); border-radius: 2px; margin-bottom: 1.8rem; overflow: hidden; }
     .progress-fill { height: 100%; background: var(--burnt); border-radius: 2px; transition: width 0.3s ease; }
@@ -67,16 +58,13 @@
     .chip { padding: 7px 14px; border-radius: 20px; border: 1.5px solid var(--border); font-family: 'Heebo', sans-serif; font-size: 0.83rem; font-weight: 500; color: var(--ink2); background: var(--cream); cursor: pointer; transition: all 0.15s; }
     .chip:hover { border-color: var(--burnt2); color: var(--burnt); }
     .chip.sel { border-color: var(--burnt); background: var(--burnt); color: white; }
-
     .btn-row { display: flex; gap: 10px; align-items: center; margin-top: 1.6rem; }
     .btn-back { padding: 10px 20px; border-radius: 12px; border: 1.5px solid var(--border); background: transparent; font-family: 'Heebo', sans-serif; font-size: 0.9rem; font-weight: 500; color: var(--ink3); cursor: pointer; white-space: nowrap; }
     .btn-back:hover { color: var(--ink); border-color: var(--ink3); }
     .btn-next { padding: 11px 0; border-radius: 12px; border: none; background: var(--burnt); font-family: 'Heebo', sans-serif; font-size: 0.95rem; font-weight: 700; color: white; cursor: pointer; flex: 1; transition: background 0.15s; }
     .btn-next:hover { background: var(--burnt2); }
     .btn-next:disabled { background: var(--border); color: var(--ink3); cursor: not-allowed; }
-    .skip-btn { font-size: 0.8rem; font-weight: 400; color: var(--ink3); background: none; border: none; cursor: pointer; font-family: 'Heebo', sans-serif; text-decoration: underline; padding: 0; }
-    .skip-btn:hover { color: var(--ink2); }
-
+    .skip-btn { font-size: 0.8rem; color: var(--ink3); background: none; border: none; cursor: pointer; font-family: 'Heebo', sans-serif; text-decoration: underline; padding: 0; margin-top: 10px; display: block; text-align: center; width: 100%; }
     .results-wrap { max-width: 580px; margin: 2rem auto 3rem; padding: 0 2rem; }
     .back-link { font-size: 0.82rem; font-weight: 500; color: var(--burnt); background: none; border: none; cursor: pointer; font-family: 'Heebo', sans-serif; margin-bottom: 1.2rem; display: block; text-align: right; }
     .result-main { background: var(--white); border-radius: 20px; border: 2px solid var(--burnt); padding: 1.6rem; margin-bottom: 1rem; }
@@ -90,7 +78,11 @@
     .alt-name { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 0.4rem; }
     .alt-desc { font-size: 0.82rem; font-weight: 300; color: var(--ink2); line-height: 1.5; margin-bottom: 0.8rem; }
     .alt-link { font-size: 0.78rem; font-weight: 700; color: var(--burnt); text-decoration: none; }
-
+    .no-results { text-align: center; padding: 3rem 1rem; color: var(--ink3); font-size: 0.95rem; font-weight: 300; }
+    .no-results strong { display: block; font-size: 1.2rem; font-weight: 700; color: var(--ink2); margin-bottom: 0.5rem; }
+    .loading { text-align: center; padding: 3rem; color: var(--ink3); font-size: 0.95rem; }
+    .spinner { display: inline-block; width: 22px; height: 22px; border: 2px solid var(--border); border-top-color: var(--burnt); border-radius: 50%; animation: spin 0.7s linear infinite; margin-right: 8px; vertical-align: middle; }
+    @keyframes spin { to { transform: rotate(360deg); } }
     .filters-wrap { background: var(--white); border-radius: 20px; border: 1px solid var(--border); padding: 2.2rem; max-width: 580px; margin: 0 auto 3rem; }
   </style>
 </head>
@@ -98,7 +90,6 @@
 
 <nav><div class="logo">מסעדאטא<span>.</span></div></nav>
 
-<!-- HOME -->
 <div id="view-home">
   <div class="hero">
     <div class="hero-title">מסעדאטא<span>.</span></div>
@@ -125,7 +116,6 @@
   <button class="btn-filter" onclick="showView('view-filters')">חיפוש עצמאי עם פילטרים ←</button>
 </div>
 
-<!-- WIZARD -->
 <div id="view-wizard" style="display:none">
   <div style="max-width:580px;margin:2rem auto 1rem;padding:0 2rem;display:flex;justify-content:flex-end">
     <button onclick="showView('view-home')" style="font-size:0.82rem;font-weight:500;color:var(--burnt);background:none;border:none;cursor:pointer;font-family:'Heebo',sans-serif">← חזרה לדף הבית</button>
@@ -136,33 +126,13 @@
   </div>
 </div>
 
-<!-- RESULTS -->
 <div id="view-results" style="display:none">
   <div class="results-wrap">
     <button class="back-link" onclick="showView('view-home')">← חיפוש חדש</button>
-    <div style="font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:1.2rem">נמצאו 3 המלצות בשבילך.ך</div>
-    <div class="result-main">
-      <span class="result-badge">ההמלצה שלנו</span>
-      <div class="result-name">פסטה מניה</div>
-      <div class="result-desc">מקום אינטימי ומרגש בלב פלורנטין — פסטות ביתיות, אווירה שקטה ומושלם לערב בשניים</div>
-      <a href="#" class="result-link">לאתר המסעדה ↗</a>
-    </div>
-    <div class="alts">
-      <div class="alt-card">
-        <div class="alt-name">טאבולה</div>
-        <div class="alt-desc">ים תיכוני קלאסי עם נוף לנמל יפו — לכשרוצים לחגוג בגדול</div>
-        <a href="#" class="alt-link">לאתר ↗</a>
-      </div>
-      <div class="alt-card">
-        <div class="alt-name">האחים</div>
-        <div class="alt-desc">בר אוכל כיפי ורועש בשוק הכרמל — אידיאלי לקבוצה קטנה</div>
-        <a href="#" class="alt-link">לאתר ↗</a>
-      </div>
-    </div>
+    <div id="results-body"><div class="loading"><span class="spinner"></span>מחפש.ת את המקום המושלם...</div></div>
   </div>
 </div>
 
-<!-- FILTERS -->
 <div id="view-filters" style="display:none">
   <div style="max-width:580px;margin:2rem auto 1rem;padding:0 2rem;display:flex;justify-content:flex-end">
     <button onclick="showView('view-home')" style="font-size:0.82rem;font-weight:500;color:var(--burnt);background:none;border:none;cursor:pointer;font-family:'Heebo',sans-serif">← חזרה</button>
@@ -170,20 +140,125 @@
   <div class="filters-wrap">
     <div style="font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:1.4rem">חיפוש עם פילטרים</div>
     <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:1.4rem">
-      <select class="inp" style="cursor:pointer"><option>כל הערים / אזורים</option><option>תל אביב</option><option>ירושלים</option><option>חיפה</option><option>הגליל התחתון</option><option>הנגב</option></select>
-      <select class="inp" style="cursor:pointer"><option>סוג עסק</option><option>מסעדה</option><option>בר</option><option>בית קפה</option></select>
-      <select class="inp" style="cursor:pointer"><option>תקציב לאדם</option><option>כמה שיותר זול</option><option>עד 50 ₪</option><option>50–100 ₪</option><option>100–200 ₪</option><option>יקר אבל לא מוגזם</option><option>אין הגבלה</option></select>
-      <select class="inp" style="cursor:pointer"><option>אווירה</option><option>אינטימי</option><option>קליל</option><option>מכובד</option></select>
-      <select class="inp" style="cursor:pointer"><option>דיאטה</option><option>טבעוני</option><option>צמחוני</option><option>ללא גלוטן</option><option>כשר</option></select>
+      <select class="inp" id="f-city" style="cursor:pointer"><option value="">כל הערים / אזורים</option><option>תל אביב</option><option>ירושלים</option><option>חיפה</option><option>הגליל</option><option>הנגב</option></select>
+      <select class="inp" id="f-type" style="cursor:pointer"><option value="">סוג עסק</option><option>מסעדה</option><option>בר</option><option>בית קפה</option></select>
+      <select class="inp" id="f-price" style="cursor:pointer"><option value="">תקציב לאדם</option><option>עד 50 ₪</option><option>50–100 ₪</option><option>100–200 ₪</option><option>יקר אבל לא מוגזם</option><option>אין הגבלה</option></select>
+      <select class="inp" id="f-vibe" style="cursor:pointer"><option value="">אווירה</option><option>אינטימי ושקט</option><option>קליל וכיפי</option><option>מכובד ורשמי</option><option>רועש וחי</option></select>
+      <select class="inp" id="f-diet" style="cursor:pointer"><option value="">דיאטה</option><option>טבעוני</option><option>צמחוני</option><option>ללא גלוטן</option><option>כשר</option></select>
     </div>
-    <button class="btn-main" onclick="showView('view-results')">חפש.י</button>
+    <button class="btn-main" onclick="searchWithFilters()">חפש.י</button>
   </div>
 </div>
 
 <script>
+  const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTKvxSYmsFCDHcDtIl2DWhISC_IdOGwmPDcML1XzJhxjLT5V5yjl5PnGfq8p3wdxMSULOX5BPSa05Fk/pub?gid=0&single=true&output=csv';
+
+  let restaurants = [];
+  let mode = null;
+  let cur = 0;
+  const ans = {};
+
+  async function loadRestaurants() {
+    try {
+      const res = await fetch(SHEET_URL);
+      const text = await res.text();
+      const lines = text.trim().split('\n');
+      const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+      restaurants = lines.slice(1).map(line => {
+        const vals = parseCSVLine(line);
+        const obj = {};
+        headers.forEach((h, i) => obj[h] = (vals[i] || '').trim().replace(/"/g, ''));
+        return obj;
+      });
+    } catch(e) {
+      console.error('Could not load restaurants', e);
+    }
+  }
+
+  function parseCSVLine(line) {
+    const result = [];
+    let cur = '';
+    let inQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') { inQuotes = !inQuotes; }
+      else if (ch === ',' && !inQuotes) { result.push(cur); cur = ''; }
+      else { cur += ch; }
+    }
+    result.push(cur);
+    return result;
+  }
+
+  function scoreRestaurant(r, answers) {
+    let score = 0;
+    const check = (field, val) => {
+      if (!val || !r[field]) return;
+      const fieldVals = r[field].split(',').map(v => v.trim());
+      if (fieldVals.some(fv => fv.includes(val) || val.includes(fv))) score++;
+    };
+    const loc = answers.location || answers.location_free || '';
+    check('location_city', loc);
+    check('location_neighborhood', loc);
+    check('location_area', loc);
+    check('time_of_day', answers.time_of_day);
+    check('occasion', answers.occasion);
+    check('group_size', answers.group);
+    if (answers.style_yes && Array.isArray(answers.style_yes)) {
+      answers.style_yes.forEach(s => check('style', s));
+    }
+    check('price_range', answers.price);
+    check('kosher', answers.kosher);
+    check('diet', answers.diet);
+    if (answers.vibe && Array.isArray(answers.vibe)) {
+      answers.vibe.forEach(v => check('vibe', v));
+    }
+    check('day', answers.day);
+    return score;
+  }
+
+  function getTopMatches(answers, count = 3) {
+    if (!restaurants.length) return [];
+    const scored = restaurants.map(r => ({ r, score: scoreRestaurant(r, answers) }));
+    scored.sort((a, b) => b.score - a.score);
+    return scored.slice(0, count).map(s => s.r);
+  }
+
+  function renderResults(matches) {
+    if (!matches.length) {
+      document.getElementById('results-body').innerHTML = `<div class="no-results"><strong>לא מצאנו תוצאות</strong>נסה.י לחפש שוב עם פרטים שונים</div>`;
+      return;
+    }
+    const card = (r, isMain) => {
+      const link = r.website ? `<a href="${r.website}" target="_blank" class="${isMain ? 'result-link' : 'alt-link'}">${isMain ? 'לאתר המסעדה ↗' : 'לאתר ↗'}</a>` : '';
+      if (isMain) {
+        return `<div class="result-main"><span class="result-badge">ההמלצה שלנו</span><div class="result-name">${r.name}</div><div class="result-desc">${r.my_tip || ''}</div>${link}</div>`;
+      }
+      return `<div class="alt-card"><div class="alt-name">${r.name}</div><div class="alt-desc">${r.my_tip || ''}</div>${link}</div>`;
+    };
+    let html = `<div style="font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:1.2rem">נמצאו ${matches.length} המלצות בשבילך.ך</div>`;
+    html += card(matches[0], true);
+    if (matches.length > 1) {
+      html += `<div class="alts">`;
+      matches.slice(1).forEach(r => html += card(r, false));
+      html += `</div>`;
+    }
+    document.getElementById('results-body').innerHTML = html;
+  }
+
+  function searchWithFilters() {
+    showView('view-results');
+    const filterAns = {
+      location: document.getElementById('f-city').value,
+      price: document.getElementById('f-price').value,
+      vibe: [document.getElementById('f-vibe').value].filter(Boolean),
+      diet: document.getElementById('f-diet').value,
+    };
+    setTimeout(() => renderResults(getTopMatches(filterAns)), 300);
+  }
+
   const steps = [
     { id:'location', label:'שאלה 1 מתוך 11', q:'איפה את.ה מחפש.ת?', hint:'אזור, עיר, או שכונה בתל אביב', placeholder:'למשל: פלורנטין, תל אביב, הגליל התחתון...', chips:['תל אביב (כללי)','פלורנטין','נווה צדק','יפו','הצפון הישן','ירושלים','חיפה','הגליל','הנגב'], optional:false },
-    { id:'time_of_day', label:'שאלה 2 מתוך 11', q:'מתי ביום?', hint:'', placeholder:'למשל: ערב מאוחר אחרי 22:00...', chips:['בוקר / בראנץ\'','צהריים','ערב','לייט נייט / מאנץ\''], optional:false },
+    { id:'time_of_day', label:'שאלה 2 מתוך 11', q:'מתי ביום?', hint:'', placeholder:'למשל: ערב מאוחר אחרי 22:00...', chips:["בוקר / בראנץ'","צהריים","ערב","לייט נייט / מאנץ'"], optional:false },
     { id:'occasion', label:'שאלה 3 מתוך 11', q:'מה האירוע?', hint:'', placeholder:'למשל: יומולדת 30 של אחי, ארוחה לפני קולנוע...', chips:['ארוחה רגילה','יומולדת','דייט','ארוחת עסקים','חגיגה משפחתית','ארוחה שקטה לבד'], optional:false },
     { id:'group', label:'שאלה 4 מתוך 11', q:'עם מי את.ה?', hint:'', placeholder:'למשל: 8 אנשים כולל 2 ילדים...', chips:['לבד','עם בת.ן זוג','2–3 חברים.ות','4–6 אנשים','6+ משפחה / קבוצה גדולה'], optional:false },
     { id:'style_yes', label:'שאלה 5 מתוך 11', q:'סגנון מועדף?', hint:'אפשר לבחור כמה', placeholder:'למשל: אוכל ים תיכוני, מטבח יפני...', chips:['ים תיכוני','יפני / סושי','איטלקי','ישראלי מודרני','מקסיקני','בשרייה','פיצה','מזרח תיכוני','אסייתי'], optional:true, multi:true },
@@ -192,12 +267,8 @@
     { id:'kosher', label:'שאלה 8 מתוך 11', q:'חשוב שיהיה כשר?', hint:'', placeholder:'', chips:['כן, חייב כשר','עדיף כשר','לא משנה'], optional:false },
     { id:'diet', label:'שאלה 9 מתוך 11', q:'יש צמחונים.ות / טבעונים.ות בקבוצה?', hint:'', placeholder:'', chips:['לא','יש צמחונים — צריך אופציות','יש טבעונים — חייב מספיק אפשרויות','הכל צמחוני / טבעוני'], optional:false },
     { id:'vibe', label:'שאלה 10 מתוך 11', q:'איזו אווירה?', hint:'אפשר לבחור כמה', placeholder:'למשל: שקט ורגוע, רוצה מוזיקה...', chips:['אינטימי ושקט','קליל וכיפי','מכובד ורשמי','רועש וחי','בחוץ / פטיו','בר-אוכל'], optional:false, multi:true },
-    { id:'day', label:'שאלה 11 מתוך 11', q:'באיזה יום?', hint:'', placeholder:'', chips:['אמצע שבוע (א\'–ה\')','שישי','שבת','לא משנה'], optional:false }
+    { id:'day', label:'שאלה 11 מתוך 11', q:'באיזה יום?', hint:'', placeholder:'', chips:["אמצע שבוע (א'–ה')",'שישי','שבת','לא משנה'], optional:false }
   ];
-
-  let cur = 0;
-  const ans = {};
-  let mode = null;
 
   function selectMode(m) {
     mode = m;
@@ -217,13 +288,20 @@
 
   function handleMain() {
     if (mode === 'guided') { cur = 0; showView('view-wizard'); renderStep(); }
-    else showView('view-results');
+    else {
+      showView('view-results');
+      const freeText = document.querySelector('#free-input textarea').value;
+      setTimeout(() => renderResults(getTopMatches({ location_free: freeText })), 300);
+    }
   }
 
   function showView(id) {
     ['view-home','view-wizard','view-results','view-filters'].forEach(v => {
       document.getElementById(v).style.display = v === id ? 'block' : 'none';
     });
+    if (id === 'view-results') {
+      document.getElementById('results-body').innerHTML = '<div class="loading"><span class="spinner"></span>מחפש.ת את המקום המושלם...</div>';
+    }
     if (id === 'view-home') {
       mode = null;
       document.getElementById('opt-free').classList.remove('sel');
@@ -248,7 +326,7 @@
       s.chips.forEach(o => {
         const multi = s.multi || false;
         const sel = ans[s.id] && (Array.isArray(ans[s.id]) ? ans[s.id].includes(o) : ans[s.id] === o);
-        d += `<div class="chip${sel ? ' sel' : ''}" onclick="tc(this,'${s.id}','${o.replace(/'/g, "\\'").replace(/"/g, '&quot;')}',${multi})">${o}</div>`;
+        d += `<div class="chip${sel ? ' sel' : ''}" onclick="tc(this,'${s.id}',${JSON.stringify(o)},${multi})">${o}</div>`;
       });
       d += `</div>`;
     }
@@ -259,10 +337,15 @@
     d += `<div class="btn-row">`;
     if (cur > 0) d += `<button class="btn-back" onclick="gb()">← חזרה</button>`;
     else d += `<div></div>`;
-    d += `<button class="btn-next" id="btn-next" onclick="${isLast ? "showView('view-results')" : 'ns()'}" ${ok ? '' : 'disabled'}>${isLast ? 'מצא.י לי! ✓' : 'המשך →'}</button>`;
+    d += `<button class="btn-next" id="btn-next" onclick="${isLast ? 'finishWizard()' : 'ns()'}" ${ok ? '' : 'disabled'}>${isLast ? 'מצא.י לי! ✓' : 'המשך →'}</button>`;
     d += `</div>`;
-    if (!s.optional && !ok) d += `<div style="text-align:center;margin-top:10px"><button class="skip-btn" onclick="skip()">דלג.י על שאלה זו</button></div>`;
+    if (!s.optional && !ok) d += `<button class="skip-btn" onclick="skip()">דלג.י על שאלה זו</button>`;
     document.getElementById('wizard-body').innerHTML = d;
+  }
+
+  function finishWizard() {
+    showView('view-results');
+    setTimeout(() => renderResults(getTopMatches(ans)), 300);
   }
 
   function recheck() {
@@ -291,6 +374,8 @@
   function ns() { if (cur < steps.length - 1) { cur++; renderStep(); } }
   function gb() { if (cur > 0) { cur--; renderStep(); } }
   function skip() { ans[steps[cur].id] = ''; ans[steps[cur].id + '_free'] = ''; ns(); }
+
+  loadRestaurants();
 </script>
 </body>
 </html>
