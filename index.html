@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>מסעדאטא</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --cream: #F7F3EC;
+      --burnt: #C4622D;
+      --burnt2: #D97440;
+      --ink: #1A1A16;
+      --ink2: #4A4A42;
+      --ink3: #8A8A80;
+      --white: #FDFAF4;
+      --border: rgba(59,74,45,0.13);
+      --olive: #3B4A2D;
+    }
+    body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--ink); direction: rtl; min-height: 100vh; }
+
+    nav { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 2.5rem; height: 58px; display: flex; align-items: center; }
+    .logo { font-size: 1.5rem; font-weight: 900; color: var(--ink); letter-spacing: -1px; }
+    .logo span { color: var(--burnt); }
+
+    .hero { padding: 4rem 2rem 1rem; text-align: center; max-width: 620px; margin: 0 auto; }
+    .hero-title { font-size: clamp(3rem, 7vw, 5rem); font-weight: 900; color: var(--ink); letter-spacing: -3px; line-height: 1; margin-bottom: 0.6rem; }
+    .hero-title span { color: var(--burnt); }
+    .hero-slogan { font-size: 0.95rem; font-weight: 300; color: var(--ink3); margin-bottom: 3rem; }
+    .hero-slogan em { font-style: normal; font-weight: 700; color: var(--burnt); }
+
+    .main-card { background: var(--white); border-radius: 20px; border: 1px solid var(--border); padding: 2.2rem; max-width: 580px; margin: 0 auto 1.6rem; }
+    .main-q { font-size: 1.15rem; font-weight: 700; color: var(--ink); margin-bottom: 1.4rem; }
+    .option-row { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1.8rem; }
+    .opt { border: 1.5px solid var(--border); border-radius: 14px; padding: 1.1rem 1.4rem; cursor: pointer; text-align: right; background: var(--cream); transition: all 0.15s; display: flex; flex-direction: column; gap: 3px; }
+    .opt:hover { border-color: var(--burnt2); }
+    .opt.sel { border-color: var(--burnt); background: var(--white); }
+    .opt-title { font-size: 0.95rem; font-weight: 700; color: var(--ink); }
+    .opt-hint { font-size: 0.8rem; font-weight: 300; color: var(--ink3); }
+
+    .free-input-wrap { display: none; margin-bottom: 1.4rem; }
+    .free-input-wrap.show { display: block; }
+
+    .inp { width: 100%; padding: 11px 15px; border: 1.5px solid var(--border); border-radius: 12px; font-family: 'Heebo', sans-serif; font-size: 0.95rem; background: var(--cream); color: var(--ink); direction: rtl; outline: none; transition: border-color 0.15s; resize: none; }
+    .inp:focus { border-color: var(--burnt); }
+    .inp::placeholder { color: var(--ink3); }
+
+    .btn-main { width: 100%; padding: 13px; border-radius: 12px; border: none; background: var(--burnt); font-family: 'Heebo', sans-serif; font-size: 1rem; font-weight: 700; color: white; cursor: pointer; transition: background 0.15s; }
+    .btn-main:hover { background: var(--burnt2); }
+    .btn-main:disabled { background: var(--border); color: var(--ink3); cursor: not-allowed; }
+
+    .sep { display: flex; align-items: center; gap: 1rem; max-width: 580px; margin: 0 auto 1.4rem; color: var(--ink3); font-size: 0.82rem; font-weight: 300; }
+    .sep::before, .sep::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .btn-filter { display: block; width: 100%; max-width: 580px; margin: 0 auto 3rem; padding: 12px; border-radius: 12px; border: 1.5px solid var(--border); background: transparent; font-family: 'Heebo', sans-serif; font-size: 0.9rem; font-weight: 500; color: var(--ink2); cursor: pointer; transition: all 0.15s; text-align: center; }
+    .btn-filter:hover { border-color: var(--olive); color: var(--olive); }
+
+    .wizard-wrap { background: var(--white); border-radius: 20px; border: 1px solid var(--border); padding: 2.2rem; max-width: 580px; margin: 0 auto 3rem; }
+    .progress-bar { height: 3px; background: var(--border); border-radius: 2px; margin-bottom: 1.8rem; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--burnt); border-radius: 2px; transition: width 0.3s ease; }
+    .step-label { font-size: 0.75rem; font-weight: 500; color: var(--ink3); margin-bottom: 0.5rem; letter-spacing: 0.5px; }
+    .step-q { font-size: 1.1rem; font-weight: 700; color: var(--ink); margin-bottom: 0.4rem; }
+    .step-hint { font-size: 0.8rem; font-weight: 300; color: var(--ink3); margin-bottom: 0.9rem; }
+    .step-free { margin-bottom: 0.9rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 0.5rem; }
+    .chip { padding: 7px 14px; border-radius: 20px; border: 1.5px solid var(--border); font-family: 'Heebo', sans-serif; font-size: 0.83rem; font-weight: 500; color: var(--ink2); background: var(--cream); cursor: pointer; transition: all 0.15s; }
+    .chip:hover { border-color: var(--burnt2); color: var(--burnt); }
+    .chip.sel { border-color: var(--burnt); background: var(--burnt); color: white; }
+
+    .btn-row { display: flex; gap: 10px; align-items: center; margin-top: 1.6rem; }
+    .btn-back { padding: 10px 20px; border-radius: 12px; border: 1.5px solid var(--border); background: transparent; font-family: 'Heebo', sans-serif; font-size: 0.9rem; font-weight: 500; color: var(--ink3); cursor: pointer; white-space: nowrap; }
+    .btn-back:hover { color: var(--ink); border-color: var(--ink3); }
+    .btn-next { padding: 11px 0; border-radius: 12px; border: none; background: var(--burnt); font-family: 'Heebo', sans-serif; font-size: 0.95rem; font-weight: 700; color: white; cursor: pointer; flex: 1; transition: background 0.15s; }
+    .btn-next:hover { background: var(--burnt2); }
+    .btn-next:disabled { background: var(--border); color: var(--ink3); cursor: not-allowed; }
+    .skip-btn { font-size: 0.8rem; font-weight: 400; color: var(--ink3); background: none; border: none; cursor: pointer; font-family: 'Heebo', sans-serif; text-decoration: underline; padding: 0; }
+    .skip-btn:hover { color: var(--ink2); }
+
+    .results-wrap { max-width: 580px; margin: 2rem auto 3rem; padding: 0 2rem; }
+    .back-link { font-size: 0.82rem; font-weight: 500; color: var(--burnt); background: none; border: none; cursor: pointer; font-family: 'Heebo', sans-serif; margin-bottom: 1.2rem; display: block; text-align: right; }
+    .result-main { background: var(--white); border-radius: 20px; border: 2px solid var(--burnt); padding: 1.6rem; margin-bottom: 1rem; }
+    .result-badge { display: inline-block; background: var(--burnt); color: white; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; padding: 3px 10px; border-radius: 10px; margin-bottom: 0.8rem; text-transform: uppercase; }
+    .result-name { font-size: 1.3rem; font-weight: 900; color: var(--ink); letter-spacing: -0.5px; margin-bottom: 0.5rem; }
+    .result-desc { font-size: 0.9rem; font-weight: 300; color: var(--ink2); line-height: 1.6; margin-bottom: 1rem; }
+    .result-link { display: inline-flex; align-items: center; gap: 5px; font-size: 0.82rem; font-weight: 700; color: var(--burnt); text-decoration: none; border: 1.5px solid var(--burnt); border-radius: 8px; padding: 5px 12px; transition: all 0.15s; }
+    .result-link:hover { background: var(--burnt); color: white; }
+    .alts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .alt-card { background: var(--white); border-radius: 16px; border: 1px solid var(--border); padding: 1.2rem; }
+    .alt-name { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 0.4rem; }
+    .alt-desc { font-size: 0.82rem; font-weight: 300; color: var(--ink2); line-height: 1.5; margin-bottom: 0.8rem; }
+    .alt-link { font-size: 0.78rem; font-weight: 700; color: var(--burnt); text-decoration: none; }
+
+    .filters-wrap { background: var(--white); border-radius: 20px; border: 1px solid var(--border); padding: 2.2rem; max-width: 580px; margin: 0 auto 3rem; }
+  </style>
+</head>
+<body>
+
+<nav><div class="logo">מסעדאטא<span>.</span></div></nav>
+
+<!-- HOME -->
+<div id="view-home">
+  <div class="hero">
+    <div class="hero-title">מסעדאטא<span>.</span></div>
+    <div class="hero-slogan">האתר שממליץ על מסעדות <em>מומלצות</em> — מומלץ!</div>
+  </div>
+  <div class="main-card">
+    <div class="main-q">מה את.ה מחפש.ת?</div>
+    <div class="option-row">
+      <div class="opt" id="opt-free" onclick="selectMode('free')">
+        <div class="opt-title">תאר.י לנו במילים שלך</div>
+        <div class="opt-hint">(למשל: מקום נחמד לארוחת ערב עם חברים, לא יקר מדי, בתל אביב)</div>
+      </div>
+      <div class="opt" id="opt-guided" onclick="selectMode('guided')">
+        <div class="opt-title">שאלות מנחות</div>
+        <div class="opt-hint">נשאל אותך.ך כמה שאלות קצרות ונמצא את המקום המושלם</div>
+      </div>
+    </div>
+    <div class="free-input-wrap" id="free-input">
+      <textarea class="inp" rows="3" placeholder="למשל: מקום רומנטי ושקט בפלורנטין לזוג, עם אפשרויות טבעוניות, תקציב בינוני..." oninput="checkFreeBtn()"></textarea>
+    </div>
+    <button class="btn-main" id="btn-main" disabled onclick="handleMain()">חפש.י</button>
+  </div>
+  <div class="sep">או</div>
+  <button class="btn-filter" onclick="showView('view-filters')">חיפוש עצמאי עם פילטרים ←</button>
+</div>
+
+<!-- WIZARD -->
+<div id="view-wizard" style="display:none">
+  <div style="max-width:580px;margin:2rem auto 1rem;padding:0 2rem;display:flex;justify-content:flex-end">
+    <button onclick="showView('view-home')" style="font-size:0.82rem;font-weight:500;color:var(--burnt);background:none;border:none;cursor:pointer;font-family:'Heebo',sans-serif">← חזרה לדף הבית</button>
+  </div>
+  <div class="wizard-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+    <div id="wizard-body"></div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div id="view-results" style="display:none">
+  <div class="results-wrap">
+    <button class="back-link" onclick="showView('view-home')">← חיפוש חדש</button>
+    <div style="font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:1.2rem">נמצאו 3 המלצות בשבילך.ך</div>
+    <div class="result-main">
+      <span class="result-badge">ההמלצה שלנו</span>
+      <div class="result-name">פסטה מניה</div>
+      <div class="result-desc">מקום אינטימי ומרגש בלב פלורנטין — פסטות ביתיות, אווירה שקטה ומושלם לערב בשניים</div>
+      <a href="#" class="result-link">לאתר המסעדה ↗</a>
+    </div>
+    <div class="alts">
+      <div class="alt-card">
+        <div class="alt-name">טאבולה</div>
+        <div class="alt-desc">ים תיכוני קלאסי עם נוף לנמל יפו — לכשרוצים לחגוג בגדול</div>
+        <a href="#" class="alt-link">לאתר ↗</a>
+      </div>
+      <div class="alt-card">
+        <div class="alt-name">האחים</div>
+        <div class="alt-desc">בר אוכל כיפי ורועש בשוק הכרמל — אידיאלי לקבוצה קטנה</div>
+        <a href="#" class="alt-link">לאתר ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTERS -->
+<div id="view-filters" style="display:none">
+  <div style="max-width:580px;margin:2rem auto 1rem;padding:0 2rem;display:flex;justify-content:flex-end">
+    <button onclick="showView('view-home')" style="font-size:0.82rem;font-weight:500;color:var(--burnt);background:none;border:none;cursor:pointer;font-family:'Heebo',sans-serif">← חזרה</button>
+  </div>
+  <div class="filters-wrap">
+    <div style="font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:1.4rem">חיפוש עם פילטרים</div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:1.4rem">
+      <select class="inp" style="cursor:pointer"><option>כל הערים / אזורים</option><option>תל אביב</option><option>ירושלים</option><option>חיפה</option><option>הגליל התחתון</option><option>הנגב</option></select>
+      <select class="inp" style="cursor:pointer"><option>סוג עסק</option><option>מסעדה</option><option>בר</option><option>בית קפה</option></select>
+      <select class="inp" style="cursor:pointer"><option>תקציב לאדם</option><option>כמה שיותר זול</option><option>עד 50 ₪</option><option>50–100 ₪</option><option>100–200 ₪</option><option>יקר אבל לא מוגזם</option><option>אין הגבלה</option></select>
+      <select class="inp" style="cursor:pointer"><option>אווירה</option><option>אינטימי</option><option>קליל</option><option>מכובד</option></select>
+      <select class="inp" style="cursor:pointer"><option>דיאטה</option><option>טבעוני</option><option>צמחוני</option><option>ללא גלוטן</option><option>כשר</option></select>
+    </div>
+    <button class="btn-main" onclick="showView('view-results')">חפש.י</button>
+  </div>
+</div>
+
+<script>
+  const steps = [
+    { id:'location', label:'שאלה 1 מתוך 11', q:'איפה את.ה מחפש.ת?', hint:'אזור, עיר, או שכונה בתל אביב', placeholder:'למשל: פלורנטין, תל אביב, הגליל התחתון...', chips:['תל אביב (כללי)','פלורנטין','נווה צדק','יפו','הצפון הישן','ירושלים','חיפה','הגליל','הנגב'], optional:false },
+    { id:'time_of_day', label:'שאלה 2 מתוך 11', q:'מתי ביום?', hint:'', placeholder:'למשל: ערב מאוחר אחרי 22:00...', chips:['בוקר / בראנץ\'','צהריים','ערב','לייט נייט / מאנץ\''], optional:false },
+    { id:'occasion', label:'שאלה 3 מתוך 11', q:'מה האירוע?', hint:'', placeholder:'למשל: יומולדת 30 של אחי, ארוחה לפני קולנוע...', chips:['ארוחה רגילה','יומולדת','דייט','ארוחת עסקים','חגיגה משפחתית','ארוחה שקטה לבד'], optional:false },
+    { id:'group', label:'שאלה 4 מתוך 11', q:'עם מי את.ה?', hint:'', placeholder:'למשל: 8 אנשים כולל 2 ילדים...', chips:['לבד','עם בת.ן זוג','2–3 חברים.ות','4–6 אנשים','6+ משפחה / קבוצה גדולה'], optional:false },
+    { id:'style_yes', label:'שאלה 5 מתוך 11', q:'סגנון מועדף?', hint:'אפשר לבחור כמה', placeholder:'למשל: אוכל ים תיכוני, מטבח יפני...', chips:['ים תיכוני','יפני / סושי','איטלקי','ישראלי מודרני','מקסיקני','בשרייה','פיצה','מזרח תיכוני','אסייתי'], optional:true, multi:true },
+    { id:'style_no', label:'שאלה 6 מתוך 11', q:'סגנון להימנע ממנו?', hint:'אופציונלי', placeholder:'למשל: לא בשר, לא יפני...', chips:['בשר','דגים ופירות ים','אוכל מטוגן','אוכל חריף','מטבח אסייתי'], optional:true, multi:true },
+    { id:'price', label:'שאלה 7 מתוך 11', q:'מה התקציב לאדם?', hint:'', placeholder:'', chips:['כמה שיותר זול','עד 50 ₪','50–100 ₪','100–200 ₪','יקר אבל לא מוגזם','אין הגבלה'], optional:false },
+    { id:'kosher', label:'שאלה 8 מתוך 11', q:'חשוב שיהיה כשר?', hint:'', placeholder:'', chips:['כן, חייב כשר','עדיף כשר','לא משנה'], optional:false },
+    { id:'diet', label:'שאלה 9 מתוך 11', q:'יש צמחונים.ות / טבעונים.ות בקבוצה?', hint:'', placeholder:'', chips:['לא','יש צמחונים — צריך אופציות','יש טבעונים — חייב מספיק אפשרויות','הכל צמחוני / טבעוני'], optional:false },
+    { id:'vibe', label:'שאלה 10 מתוך 11', q:'איזו אווירה?', hint:'אפשר לבחור כמה', placeholder:'למשל: שקט ורגוע, רוצה מוזיקה...', chips:['אינטימי ושקט','קליל וכיפי','מכובד ורשמי','רועש וחי','בחוץ / פטיו','בר-אוכל'], optional:false, multi:true },
+    { id:'day', label:'שאלה 11 מתוך 11', q:'באיזה יום?', hint:'', placeholder:'', chips:['אמצע שבוע (א\'–ה\')','שישי','שבת','לא משנה'], optional:false }
+  ];
+
+  let cur = 0;
+  const ans = {};
+  let mode = null;
+
+  function selectMode(m) {
+    mode = m;
+    document.getElementById('opt-free').classList.toggle('sel', m === 'free');
+    document.getElementById('opt-guided').classList.toggle('sel', m === 'guided');
+    document.getElementById('free-input').classList.toggle('show', m === 'free');
+    const btn = document.getElementById('btn-main');
+    if (m === 'guided') { btn.disabled = false; btn.textContent = 'התחל.י בשאלות ←'; }
+    else { btn.textContent = 'חפש.י'; checkFreeBtn(); }
+  }
+
+  function checkFreeBtn() {
+    if (mode !== 'free') return;
+    const val = document.querySelector('#free-input textarea').value.trim();
+    document.getElementById('btn-main').disabled = val.length < 3;
+  }
+
+  function handleMain() {
+    if (mode === 'guided') { cur = 0; showView('view-wizard'); renderStep(); }
+    else showView('view-results');
+  }
+
+  function showView(id) {
+    ['view-home','view-wizard','view-results','view-filters'].forEach(v => {
+      document.getElementById(v).style.display = v === id ? 'block' : 'none';
+    });
+    if (id === 'view-home') {
+      mode = null;
+      document.getElementById('opt-free').classList.remove('sel');
+      document.getElementById('opt-guided').classList.remove('sel');
+      document.getElementById('free-input').classList.remove('show');
+      const btn = document.getElementById('btn-main');
+      btn.disabled = true; btn.textContent = 'חפש.י';
+    }
+  }
+
+  function renderStep() {
+    const s = steps[cur];
+    const pct = Math.round(((cur + 1) / steps.length) * 100);
+    document.getElementById('progress').style.width = pct + '%';
+    let d = `<div class="step-label">${s.label}</div>`;
+    d += `<div class="step-q">${s.q}</div>`;
+    if (s.hint) d += `<div class="step-hint">${s.hint}</div>`;
+    const fval = ans[s.id + '_free'] || '';
+    d += `<div class="step-free"><textarea class="inp" rows="2" id="free-field" placeholder="${s.placeholder || 'הקלד.י כאן בחופשיות...'}" oninput="ans['${s.id}_free']=this.value;recheck()">${fval}</textarea></div>`;
+    if (s.chips && s.chips.length) {
+      d += `<div class="chips" id="cw">`;
+      s.chips.forEach(o => {
+        const multi = s.multi || false;
+        const sel = ans[s.id] && (Array.isArray(ans[s.id]) ? ans[s.id].includes(o) : ans[s.id] === o);
+        d += `<div class="chip${sel ? ' sel' : ''}" onclick="tc(this,'${s.id}','${o.replace(/'/g, "\\'").replace(/"/g, '&quot;')}',${multi})">${o}</div>`;
+      });
+      d += `</div>`;
+    }
+    const isLast = cur === steps.length - 1;
+    const hasChip = ans[s.id] && (Array.isArray(ans[s.id]) ? ans[s.id].length > 0 : ans[s.id] !== '');
+    const hasFree = (ans[s.id + '_free'] || '').trim() !== '';
+    const ok = s.optional || (hasChip || hasFree);
+    d += `<div class="btn-row">`;
+    if (cur > 0) d += `<button class="btn-back" onclick="gb()">← חזרה</button>`;
+    else d += `<div></div>`;
+    d += `<button class="btn-next" id="btn-next" onclick="${isLast ? "showView('view-results')" : 'ns()'}" ${ok ? '' : 'disabled'}>${isLast ? 'מצא.י לי! ✓' : 'המשך →'}</button>`;
+    d += `</div>`;
+    if (!s.optional && !ok) d += `<div style="text-align:center;margin-top:10px"><button class="skip-btn" onclick="skip()">דלג.י על שאלה זו</button></div>`;
+    document.getElementById('wizard-body').innerHTML = d;
+  }
+
+  function recheck() {
+    const s = steps[cur];
+    const hasFree = (ans[s.id + '_free'] || '').trim() !== '';
+    const hasChip = ans[s.id] && (Array.isArray(ans[s.id]) ? ans[s.id].length > 0 : ans[s.id] !== '');
+    const ok = s.optional || (hasChip || hasFree);
+    const btn = document.getElementById('btn-next');
+    if (btn) btn.disabled = !ok;
+  }
+
+  function tc(el, id, val, multi) {
+    if (multi) {
+      if (!ans[id]) ans[id] = [];
+      const i = ans[id].indexOf(val);
+      if (i > -1) { ans[id].splice(i, 1); el.classList.remove('sel'); }
+      else { ans[id].push(val); el.classList.add('sel'); }
+    } else {
+      ans[id] = val;
+      document.querySelectorAll('#cw .chip').forEach(c => c.classList.remove('sel'));
+      el.classList.add('sel');
+    }
+    recheck();
+  }
+
+  function ns() { if (cur < steps.length - 1) { cur++; renderStep(); } }
+  function gb() { if (cur > 0) { cur--; renderStep(); } }
+  function skip() { ans[steps[cur].id] = ''; ans[steps[cur].id + '_free'] = ''; ns(); }
+</script>
+</body>
+</html>
