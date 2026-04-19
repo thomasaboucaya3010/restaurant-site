@@ -85,7 +85,6 @@
 
 <nav><div class="logo">מסעדאטא<span>.</span></div></nav>
 
-<!-- HOME -->
 <div id="view-home">
   <div class="hero">
     <div class="hero-title">מסעדאטא<span>.</span></div>
@@ -112,7 +111,6 @@
   <button class="btn-filter" onclick="showView('view-filters')">חיפוש עצמאי עם פילטרים ←</button>
 </div>
 
-<!-- WIZARD -->
 <div id="view-wizard" style="display:none">
   <div style="max-width:580px;margin:2rem auto 1rem;padding:0 2rem;display:flex;justify-content:flex-end">
     <button onclick="showView('view-home')" style="font-size:0.82rem;font-weight:500;color:var(--burnt);background:none;border:none;cursor:pointer;font-family:'Heebo',sans-serif">← חזרה לדף הבית</button>
@@ -123,7 +121,6 @@
   </div>
 </div>
 
-<!-- RESULTS -->
 <div id="view-results" style="display:none">
   <div class="results-wrap">
     <button class="back-link" onclick="showView('view-home')">← חיפוש חדש</button>
@@ -131,7 +128,6 @@
   </div>
 </div>
 
-<!-- FILTERS -->
 <div id="view-filters" style="display:none">
   <div style="max-width:580px;margin:2rem auto 1rem;padding:0 2rem;display:flex;justify-content:flex-end">
     <button onclick="showView('view-home')" style="font-size:0.82rem;font-weight:500;color:var(--burnt);background:none;border:none;cursor:pointer;font-family:'Heebo',sans-serif">← חזרה</button>
@@ -226,43 +222,20 @@ function showView(id) {
   }
 }
 
-async function searchWithAI(userQuery) {
+async function searchWithAI(query) {
   if (!restaurants.length) { renderResults([]); return; }
-
-  const list = restaurants.map((r, i) =>
-    `${i+1}. שם: ${r.name} | עיר: ${r.location_city} | שכונה: ${r.location_neighborhood} | סגנון: ${r.style} | מחיר: ${r.price_range} | אווירה: ${r.vibe} | מתאים ל: ${r.occasion} | דיאטה: ${r.diet} | כשר: ${r.kosher} | זמן: ${r.time_of_day} | ימים: ${r.day} | קבוצה: ${r.group_size}`
-  ).join('\n');
-
-  const prompt = `אתה מנוע המלצות מסעדות חכם. קיבלת בקשה בעברית ורשימת מסעדות.
-
-בקשת המשתמש: "${userQuery}"
-
-רשימת המסעדות:
-${list}
-
-בחר את 3 המסעדות המתאימות ביותר לבקשה. התחשב בכל הפרטים שהמשתמש ציין — מיקום, אווירה, תקציב, הזדמנות, דיאטה וכו'.
-אם הרשימה קטנה, החזר את כל המסעדות הקיימות לפי סדר התאמה.
-
-ענה אך ורק במספרים מופרדים בפסיקים, לדוגמה: 2,1,3
-ללא טקסט נוסף.`;
-
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('/.netlify/functions/search', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 20,
-        messages: [{ role: 'user', content: prompt }]
-      })
+      body: JSON.stringify({ query, restaurants })
     });
     const data = await res.json();
-    const text = data.content[0].text.trim();
-    const indices = text.split(',').map(n => parseInt(n.trim()) - 1).filter(n => !isNaN(n) && n >= 0 && n < restaurants.length);
+    const indices = data.result.split(',').map(n => parseInt(n.trim()) - 1).filter(n => !isNaN(n) && n >= 0 && n < restaurants.length);
     const matches = indices.map(i => restaurants[i]).filter(Boolean);
     renderResults(matches.length ? matches : restaurants.slice(0, 3));
   } catch(e) {
-    console.error('AI search failed, falling back to simple match', e);
+    console.error('Search failed', e);
     renderResults(restaurants.slice(0, 3));
   }
 }
@@ -315,24 +288,20 @@ function renderStep() {
   const s = steps[cur];
   const pct = Math.round(((cur + 1) / steps.length) * 100);
   document.getElementById('progress').style.width = pct + '%';
-
   let d = `<div class="step-label">${s.label}</div>`;
   d += `<div class="step-q">${s.q}</div>`;
   if (s.hint) d += `<div class="step-hint">${s.hint}</div>`;
-
   const fval = ans[s.id + '_free'] || '';
   d += `<div class="step-free"><textarea class="inp" rows="2" placeholder="${s.placeholder || 'הקלד.י כאן בחופשיות...'}" onchange="ans['${s.id}_free']=this.value;updateNextBtn()">${fval}</textarea></div>`;
-
   if (s.chips && s.chips.length) {
     d += '<div class="chips">';
     s.chips.forEach((o, idx) => {
       const isMulti = s.multi || false;
       const isSel = ans[s.id] && (isMulti ? ans[s.id].includes(o) : ans[s.id] === o);
-      d += `<div class="chip${isSel ? ' sel' : ''}" data-step="${cur}" data-idx="${idx}" data-val="${o.replace(/"/g,'&quot;')}" data-multi="${isMulti}" onclick="chipClick(this)">${o}</div>`;
+      d += `<div class="chip${isSel ? ' sel' : ''}" data-step="${cur}" data-val="${o.replace(/"/g,'&quot;')}" data-multi="${isMulti}" onclick="chipClick(this)">${o}</div>`;
     });
     d += '</div>';
   }
-
   const isLast = cur === steps.length - 1;
   const ok = isAnswered(s);
   d += '<div class="btn-row">';
@@ -341,7 +310,6 @@ function renderStep() {
   d += `<button class="btn-next" id="btn-next" onclick="${isLast ? 'finishWizard()' : 'goNext()'}" ${ok ? '' : 'disabled'}>${isLast ? 'מצא.י לי! ✓' : 'המשך →'}</button>`;
   d += '</div>';
   if (!s.optional && !ok) d += '<button class="skip-btn" onclick="skipStep()">דלג.י על שאלה זו</button>';
-
   document.getElementById('wizard-body').innerHTML = d;
 }
 
@@ -350,7 +318,6 @@ function chipClick(el) {
   const val = el.dataset.val;
   const isMulti = el.dataset.multi === 'true';
   const s = steps[stepIdx];
-
   if (isMulti) {
     if (!ans[s.id]) ans[s.id] = [];
     const i = ans[s.id].indexOf(val);
