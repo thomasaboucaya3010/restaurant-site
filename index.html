@@ -47,6 +47,7 @@
     .wizard-wrap { background: var(--white); border-radius: 20px; border: 1px solid var(--border); padding: 2.2rem; max-width: 580px; margin: 0 auto 3rem; }
     .progress-bar { height: 3px; background: var(--border); border-radius: 2px; margin-bottom: 1.8rem; overflow: hidden; }
     .progress-fill { height: 100%; background: var(--burnt); border-radius: 2px; transition: width 0.3s ease; }
+    .stage-label { font-size: 0.72rem; font-weight: 700; color: var(--burnt); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.3rem; }
     .step-label { font-size: 0.75rem; font-weight: 500; color: var(--ink3); margin-bottom: 0.5rem; letter-spacing: 0.5px; }
     .step-q { font-size: 1.1rem; font-weight: 700; color: var(--ink); margin-bottom: 0.4rem; }
     .step-hint { font-size: 0.8rem; font-weight: 300; color: var(--ink3); margin-bottom: 0.9rem; }
@@ -61,23 +62,29 @@
     .btn-next { padding: 11px 0; border-radius: 12px; border: none; background: var(--burnt); font-family: 'Heebo', sans-serif; font-size: 0.95rem; font-weight: 700; color: white; cursor: pointer; flex: 1; transition: background 0.15s; }
     .btn-next:hover { background: var(--burnt2); }
     .btn-next:disabled { background: var(--border); color: var(--ink3); cursor: not-allowed; }
-    .skip-btn { font-size: 0.8rem; color: var(--ink3); background: none; border: none; cursor: pointer; font-family: 'Heebo', sans-serif; text-decoration: underline; padding: 0; margin-top: 10px; display: block; text-align: center; width: 100%; }
+    .btn-skip { padding: 11px 0; border-radius: 12px; border: 1.5px solid var(--border); background: transparent; font-family: 'Heebo', sans-serif; font-size: 0.9rem; font-weight: 500; color: var(--ink3); cursor: pointer; flex: 0 0 80px; transition: all 0.15s; text-align: center; }
+    .btn-skip:hover { border-color: var(--ink3); color: var(--ink2); }
+    .stage2-divider { border-top: 1px dashed var(--border); margin: 1.5rem 0; padding-top: 1.5rem; }
+    .stage2-title { font-size: 0.85rem; font-weight: 700; color: var(--ink2); margin-bottom: 1.2rem; }
+    .refinement-row { margin-bottom: 1.4rem; }
+    .refinement-q { font-size: 0.9rem; font-weight: 700; color: var(--ink); margin-bottom: 0.6rem; }
     .results-wrap { max-width: 580px; margin: 2rem auto 3rem; padding: 0 2rem; }
     .back-link { font-size: 0.82rem; font-weight: 500; color: var(--burnt); background: none; border: none; cursor: pointer; font-family: 'Heebo', sans-serif; margin-bottom: 1.2rem; display: block; text-align: right; }
     .result-card { background: var(--white); border-radius: 16px; border: 1px solid var(--border); padding: 1.4rem; margin-bottom: 1rem; }
     .result-name { font-size: 1.2rem; font-weight: 900; color: var(--ink); letter-spacing: -0.5px; margin-bottom: 0.5rem; }
-    .result-desc { font-size: 0.9rem; font-weight: 300; color: var(--ink2); line-height: 1.6; margin-bottom: 1rem; }
+    .result-desc { font-size: 0.9rem; font-weight: 300; color: var(--ink2); line-height: 1.6; margin-bottom: 0.8rem; }
+    .bar-tip { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 500; color: var(--olive); background: #eef2e8; border-radius: 8px; padding: 6px 10px; margin-bottom: 0.8rem; }
     .result-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .result-link { display: inline-flex; align-items: center; gap: 5px; font-size: 0.82rem; font-weight: 700; color: var(--burnt); text-decoration: none; border: 1.5px solid var(--burnt); border-radius: 8px; padding: 5px 12px; transition: all 0.15s; }
     .result-link:hover { background: var(--burnt); color: white; }
     .why-btn { font-size: 0.78rem; font-weight: 500; color: var(--ink3); background: none; border: 1px solid var(--border); border-radius: 8px; padding: 5px 10px; cursor: pointer; font-family: 'Heebo', sans-serif; transition: all 0.15s; display: none; }
     .why-btn.show { display: inline-flex; }
     .why-btn:hover { border-color: var(--olive); color: var(--olive); }
-    .debug-panel { background: #f0f4e8; border: 1px solid rgba(59,74,45,0.2); border-radius: 10px; padding: 1rem; margin-top: 0.8rem; display: none; direction: rtl; }
+    .debug-panel { background: #f0f4e8; border: 1px solid rgba(59,74,45,0.2); border-radius: 10px; padding: 1rem; margin-top: 0.8rem; display: none; }
     .debug-panel.show { display: block; }
     .debug-title { font-size: 0.75rem; font-weight: 700; color: var(--olive); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
     .debug-reason { font-size: 0.85rem; color: var(--ink2); margin-bottom: 0.8rem; line-height: 1.5; }
-    .debug-fields { font-size: 0.78rem; color: var(--ink3); line-height: 1.8; }
+    .debug-fields { font-size: 0.78rem; color: var(--ink3); line-height: 1.9; }
     .debug-fields span { color: var(--ink2); font-weight: 500; }
     .edit-link { display: inline-flex; align-items: center; gap: 4px; font-size: 0.78rem; font-weight: 700; color: var(--olive); text-decoration: none; border: 1px solid var(--olive); border-radius: 6px; padding: 4px 10px; margin-top: 0.6rem; transition: all 0.15s; }
     .edit-link:hover { background: var(--olive); color: white; }
@@ -90,10 +97,10 @@
     .spinner { display: inline-block; width: 22px; height: 22px; border: 2px solid var(--border); border-top-color: var(--burnt); border-radius: 50%; animation: spin 0.7s linear infinite; margin-right: 8px; vertical-align: middle; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .filters-wrap { background: var(--white); border-radius: 20px; border: 1px solid var(--border); padding: 2.2rem; max-width: 580px; margin: 0 auto 3rem; }
-    .admin-login { position: fixed; bottom: 20px; left: 20px; font-size: 0.7rem; color: var(--border); cursor: pointer; user-select: none; }
+.admin-login { position: fixed; bottom: 16px; left: 16px; font-size: 1rem; color: var(--white); cursor: pointer; background: var(--olive); border: none; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; z-index: 50; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }    .admin-login:hover { border-color: var(--olive); color: var(--olive); }
     .admin-modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 999; align-items: center; justify-content: center; }
     .admin-modal-bg.show { display: flex; }
-    .admin-modal { background: var(--white); border-radius: 16px; padding: 2rem; width: 320px; text-align: center; }
+    .admin-modal { background: var(--white); border-radius: 16px; padding: 2rem; width: 300px; text-align: center; }
     .admin-modal h3 { font-size: 1rem; font-weight: 700; margin-bottom: 1rem; color: var(--ink); }
     .admin-modal input { width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-family: 'Heebo', sans-serif; font-size: 0.95rem; margin-bottom: 1rem; outline: none; text-align: center; }
     .admin-modal input:focus { border-color: var(--olive); }
@@ -175,7 +182,7 @@
   </div>
 </div>
 
-<!-- ADMIN LOGIN MODAL -->
+<!-- ADMIN MODAL -->
 <div class="admin-modal-bg" id="admin-modal">
   <div class="admin-modal">
     <h3>כניסת מנהל</h3>
@@ -186,12 +193,12 @@
   </div>
 </div>
 
-<div class="admin-login" onclick="openAdminModal()">⚙</div>
+<div class="admin-login" onclick="openAdminModal()" title="כניסת מנהל">⚙</div>
 
 <script>
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTKvxSYmsFCDHcDtIl2DWhISC_IdOGwmPDcML1XzJhxjLT5V5yjl5PnGfq8p3wdxMSULOX5BPSa05Fk/pub?gid=0&single=true&output=csv';
-const SHEET_EDIT_URL = 'https://docs.google.com/spreadsheets/d/1REPLACE_WITH_YOUR_SHEET_ID/edit';
 const ADMIN_PASSWORD = 'misadata2024';
+let SHEET_EDIT_URL = '';
 
 let restaurants = [];
 let mode = null;
@@ -200,8 +207,8 @@ let ans = {};
 let isAdmin = false;
 let currentQuery = '';
 let currentOffset = 0;
-let currentHasMore = false;
 let renderedCards = [];
+let peopleCount = 0;
 
 async function loadRestaurants() {
   try {
@@ -215,10 +222,7 @@ async function loadRestaurants() {
       headers.forEach((h,i) => obj[h] = (vals[i]||'').replace(/^"|"$/g,'').trim());
       return obj;
     });
-    console.log('Loaded', restaurants.length, 'restaurants');
-  } catch(e) {
-    console.error('Could not load restaurants', e);
-  }
+  } catch(e) { console.error('Could not load restaurants', e); }
 }
 
 function parseCSV(line) {
@@ -233,25 +237,18 @@ function parseCSV(line) {
 }
 
 // ADMIN
-function openAdminModal() { document.getElementById('admin-modal').classList.add('show'); document.getElementById('admin-pw').focus(); }
+function openAdminModal() { document.getElementById('admin-modal').classList.add('show'); setTimeout(() => document.getElementById('admin-pw').focus(), 100); }
 function closeAdminModal() { document.getElementById('admin-modal').classList.remove('show'); document.getElementById('admin-pw').value = ''; document.getElementById('admin-error').style.display = 'none'; }
 function checkAdmin() {
-  const pw = document.getElementById('admin-pw').value;
-  if (pw === ADMIN_PASSWORD) {
-    isAdmin = true;
-    closeAdminModal();
+  if (document.getElementById('admin-pw').value === ADMIN_PASSWORD) {
+    isAdmin = true; closeAdminModal();
     document.getElementById('admin-badge').classList.add('show');
     document.querySelectorAll('.why-btn').forEach(b => b.classList.add('show'));
-  } else {
-    document.getElementById('admin-error').style.display = 'block';
-  }
+  } else { document.getElementById('admin-error').style.display = 'block'; }
 }
+function toggleDebug(idx) { document.getElementById('debug-' + idx)?.classList.toggle('show'); }
 
-function toggleDebug(idx) {
-  const panel = document.getElementById('debug-' + idx);
-  if (panel) panel.classList.toggle('show');
-}
-
+// HOME
 function selectMode(m) {
   mode = m;
   document.getElementById('opt-free').classList.toggle('sel', m === 'free');
@@ -268,13 +265,11 @@ function checkFreeBtn() {
 }
 
 function handleMain() {
-  if (mode === 'guided') { ans = {}; cur = 0; showView('view-wizard'); renderStep(); }
+  if (mode === 'guided') { ans = {}; cur = 0; peopleCount = 0; showView('view-wizard'); renderStep(); }
   else {
     currentQuery = document.querySelector('#free-input textarea').value;
-    currentOffset = 0;
-    renderedCards = [];
-    showView('view-results');
-    doSearch();
+    currentOffset = 0; renderedCards = [];
+    showView('view-results'); doSearch();
   }
 }
 
@@ -287,7 +282,7 @@ function showView(id) {
     document.getElementById('show-more-btn').classList.remove('show');
   }
   if (id === 'view-home') {
-    mode = null; ans = {}; cur = 0; currentOffset = 0; renderedCards = [];
+    mode = null; ans = {}; cur = 0; currentOffset = 0; renderedCards = []; peopleCount = 0;
     document.getElementById('opt-free').classList.remove('sel');
     document.getElementById('opt-guided').classList.remove('sel');
     document.getElementById('free-input').classList.remove('show');
@@ -296,8 +291,10 @@ function showView(id) {
   }
 }
 
+// SEARCH
 async function doSearch() {
   if (!restaurants.length) { renderResults([], false, 0); return; }
+  const loadingMore = document.getElementById('loading-more');
   try {
     const res = await fetch('/.netlify/functions/search', {
       method: 'POST',
@@ -305,21 +302,21 @@ async function doSearch() {
       body: JSON.stringify({ query: currentQuery, restaurants, offset: currentOffset, count: 3 })
     });
     const data = await res.json();
-    currentHasMore = data.hasMore;
+    if (loadingMore) loadingMore.remove();
     renderResults(data.results || [], data.hasMore, data.totalFound, currentOffset === 0);
     currentOffset += (data.results || []).length;
   } catch(e) {
+    if (loadingMore) loadingMore.remove();
     console.error('Search failed', e);
-    renderResults(restaurants.slice(0, 3).map(r => ({ restaurant: r, reason: 'התאמה כללית' })), false, 3, true);
+    renderResults(restaurants.slice(0,3).map(r => ({ restaurant: r, reason: 'התאמה כללית' })), false, 3, true);
   }
 }
 
 function loadMore() {
   document.getElementById('show-more-btn').classList.remove('show');
   const loadingDiv = document.createElement('div');
-  loadingDiv.className = 'loading';
+  loadingDiv.className = 'loading'; loadingDiv.id = 'loading-more';
   loadingDiv.innerHTML = '<span class="spinner"></span>מחפש עוד...';
-  loadingDiv.id = 'loading-more';
   document.getElementById('results-body').appendChild(loadingDiv);
   doSearch();
 }
@@ -330,23 +327,17 @@ function searchWithFilters() {
   const vibe = document.getElementById('f-vibe').value;
   const diet = document.getElementById('f-diet').value;
   currentQuery = [city, price, vibe, diet].filter(Boolean).join(', ') || 'המלצה כללית';
-  currentOffset = 0;
-  renderedCards = [];
-  showView('view-results');
-  doSearch();
+  currentOffset = 0; renderedCards = [];
+  showView('view-results'); doSearch();
 }
 
 function renderResults(results, hasMore, totalFound, isFirstPage = true) {
-  const loadingMore = document.getElementById('loading-more');
-  if (loadingMore) loadingMore.remove();
-
   if (isFirstPage) {
     if (!results || !results.length) {
       document.getElementById('results-body').innerHTML = '<div class="no-results"><strong>לא מצאנו תוצאות</strong>נסה.י לחפש שוב עם פרטים שונים</div>';
       return;
     }
-    const header = `<div class="results-header"><div class="results-title">המלצות בשבילך</div><div class="results-count">${totalFound} מסעדות עברו סינון</div></div>`;
-    document.getElementById('results-body').innerHTML = header;
+    document.getElementById('results-body').innerHTML = `<div class="results-header"><div class="results-title">המלצות בשבילך</div><div class="results-count">${totalFound} מסעדות עברו סינון</div></div>`;
   }
 
   const startIdx = renderedCards.length;
@@ -356,33 +347,30 @@ function renderResults(results, hasMore, totalFound, isFirstPage = true) {
     const reason = item.reason || '';
     renderedCards.push(r);
 
-    const editUrl = SHEET_EDIT_URL;
+    const isCouple = peopleCount === 2 || currentQuery.includes('זוג') || currentQuery.includes('שניים') || currentQuery.includes('2 אנשים');
+    const hasBarSeating = r.bar_seating && r.bar_seating.toLowerCase() === 'yes';
+    const barTip = (isCouple && hasBarSeating) ? `<div class="bar-tip">💡 מומלץ לשבת בבר — חוויה מיוחדת לזוג</div>` : '';
+
     const link = r.website ? `<a href="${r.website}" target="_blank" class="result-link">לאתר ↗</a>` : '';
 
     const debugFields = `
       <div class="debug-fields">
-        עיר: <span>${r.location_city || '—'}</span> |
-        שכונה: <span>${r.location_neighborhood || '—'}</span> |
-        סגנון: <span>${r.style || '—'}</span><br>
-        מחיר: <span>${r.price_range || '—'}</span> |
-        אווירה: <span>${r.vibe || '—'}</span> |
-        כשר: <span>${r.kosher || '—'}</span><br>
-        דיאטה: <span>${r.diet || '—'}</span> |
-        זמן: <span>${r.time_of_day || '—'}</span> |
-        ימים: <span>${r.day || '—'}</span><br>
-        מתאים ל: <span>${r.occasion || '—'}</span> |
-        קבוצה: <span>${r.group_size || '—'}</span>
+        עיר: <span>${r.location_city||'—'}</span> | שכונה: <span>${r.location_neighborhood||'—'}</span> | סגנון: <span>${r.style||'—'}</span><br>
+        מחיר: <span>${r.price_range||'—'}</span> | אווירה: <span>${r.vibe||'—'}</span> | כשר: <span>${r.kosher||'—'}</span><br>
+        דיאטה: <span>${r.diet||'—'}</span> | זמן: <span>${r.time_of_day||'—'}</span> | ימים: <span>${r.day||'—'}</span><br>
+        מתאים ל: <span>${r.occasion||'—'}</span> | בר: <span>${r.bar_seating||'—'}</span>
       </div>
-      <a href="${editUrl}" target="_blank" class="edit-link">✏ ערוך בגיליון</a>`;
+      <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTKvxSYmsFCDHcDtIl2DWhISC_IdOGwmPDcML1XzJhxjLT5V5yjl5PnGfq8p3wdxMSULOX5BPSa05Fk/pub" target="_blank" class="edit-link">✏ פתח גיליון לעריכה</a>`;
 
     const card = document.createElement('div');
     card.className = 'result-card';
     card.innerHTML = `
       <div class="result-name">${r.name}</div>
-      <div class="result-desc">${r.my_tip || ''}</div>
+      <div class="result-desc">${r.my_tip||''}</div>
+      ${barTip}
       <div class="result-actions">
         ${link}
-        <button class="why-btn ${isAdmin ? 'show' : ''}" onclick="toggleDebug(${idx})">למה זה נבחר?</button>
+        <button class="why-btn ${isAdmin?'show':''}" onclick="toggleDebug(${idx})">למה זה נבחר? ▾</button>
       </div>
       <div class="debug-panel" id="debug-${idx}">
         <div class="debug-title">סיבת הבחירה</div>
@@ -392,105 +380,211 @@ function renderResults(results, hasMore, totalFound, isFirstPage = true) {
     document.getElementById('results-body').appendChild(card);
   });
 
-  const showMoreBtn = document.getElementById('show-more-btn');
-  if (hasMore) {
-    showMoreBtn.classList.add('show');
-  } else {
-    showMoreBtn.classList.remove('show');
-  }
+  document.getElementById('show-more-btn').classList.toggle('show', hasMore);
 }
 
-const steps = [
-  { id:'location', label:'שאלה 1 מתוך 11', q:'איפה את.ה מחפש.ת?', hint:'אזור, עיר, או שכונה בתל אביב', placeholder:'למשל: פלורנטין, תל אביב, הגליל התחתון...', chips:['תל אביב','פלורנטין','נווה צדק','יפו','הצפון הישן','ירושלים','חיפה','הגליל','הנגב'], optional:false },
-  { id:'time_of_day', label:'שאלה 2 מתוך 11', q:'מתי ביום?', hint:'', placeholder:'למשל: ערב מאוחר אחרי 22:00...', chips:['בוקר / בראנץ\'','צהריים','ערב','לייט נייט / מאנץ\''], optional:false },
-  { id:'occasion', label:'שאלה 3 מתוך 11', q:'מה האירוע?', hint:'', placeholder:'למשל: יומולדת 30 של אחי...', chips:['ארוחה רגילה','יומולדת','דייט','ארוחת עסקים','חגיגה משפחתית','ארוחה שקטה לבד'], optional:false },
-  { id:'group', label:'שאלה 4 מתוך 11', q:'עם מי את.ה?', hint:'', placeholder:'למשל: 8 אנשים כולל 2 ילדים...', chips:['לבד','עם בת/ן זוג','2–3 חברים','4–6 אנשים','6+ משפחה'], optional:false },
-  { id:'style_yes', label:'שאלה 5 מתוך 11', q:'סגנון מועדף?', hint:'אפשר לבחור כמה', placeholder:'למשל: ים תיכוני, יפני...', chips:['ים תיכוני','יפני','איטלקי','ישראלי מודרני','מקסיקני','בשרייה','פיצה','מזרח תיכוני','אסייתי'], optional:true, multi:true },
-  { id:'style_no', label:'שאלה 6 מתוך 11', q:'סגנון להימנע ממנו?', hint:'אופציונלי', placeholder:'למשל: לא בשר, לא יפני...', chips:['בשר','דגים','מטוגן','חריף','אסייתי'], optional:true, multi:true },
-  { id:'price', label:'שאלה 7 מתוך 11', q:'מה התקציב לאדם?', hint:'', placeholder:'', chips:['כמה שיותר זול','עד 50 ₪','50–100 ₪','100–200 ₪','יקר אבל לא מוגזם','אין הגבלה'], optional:false },
-  { id:'kosher', label:'שאלה 8 מתוך 11', q:'חשוב שיהיה כשר?', hint:'', placeholder:'', chips:['כן, חייב כשר','עדיף כשר','לא משנה'], optional:false },
-  { id:'diet', label:'שאלה 9 מתוך 11', q:'יש צמחונים / טבעונים בקבוצה?', hint:'', placeholder:'', chips:['לא','יש צמחונים — צריך אופציות','יש טבעונים — חייב מספיק אפשרויות','הכל צמחוני / טבעוני'], optional:false },
-  { id:'vibe', label:'שאלה 10 מתוך 11', q:'איזו אווירה?', hint:'אפשר לבחור כמה', placeholder:'למשל: שקט ורגוע, רוצה מוזיקה...', chips:['אינטימי ושקט','קליל וכיפי','מכובד ורשמי','רועש וחי','בחוץ / פטיו','בר-אוכל'], optional:false, multi:true },
-  { id:'day', label:'שאלה 11 מתוך 11', q:'באיזה יום?', hint:'', placeholder:'', chips:['אמצע שבוע','שישי','שבת','לא משנה'], optional:false }
+// WIZARD — Stage 1: essential questions
+const stage1 = [
+  {
+    id: 'location',
+    stage: 'שלב 1 — שאלות עיקריות',
+    label: 'שאלה 1 מתוך 5',
+    q: 'איפה את.ה מחפש.ת?',
+    hint: 'עיר, שכונה, או אזור',
+    placeholder: 'למשל: פלורנטין, תל אביב, הגליל התחתון...',
+    chips: ['תל אביב','פלורנטין','נווה צדק','יפו','הצפון הישן','ירושלים','חיפה','הגליל','הנגב']
+  },
+  {
+    id: 'day',
+    stage: 'שלב 1 — שאלות עיקריות',
+    label: 'שאלה 2 מתוך 5',
+    q: 'איזה יום?',
+    hint: '',
+    placeholder: '',
+    chips: ['אמצע שבוע','שישי','שבת','לא משנה']
+  },
+  {
+    id: 'time_of_day',
+    stage: 'שלב 1 — שאלות עיקריות',
+    label: 'שאלה 3 מתוך 5',
+    q: 'מתי ביום?',
+    hint: '',
+    placeholder: 'למשל: ארוחת בוקר מאוחרת, ערב מאוחר...',
+    chips: ['בוקר / בראנץ\'','צהריים','ערב','לייט נייט']
+  },
+  {
+    id: 'occasion',
+    stage: 'שלב 1 — שאלות עיקריות',
+    label: 'שאלה 4 מתוך 5',
+    q: 'מה האירוע?',
+    hint: '',
+    placeholder: 'למשל: יומולדת של אמא, ארוחת עסקים, סתם יציאה...',
+    chips: ['ארוחה רגילה','יומולדת','דייט','ארוחת עסקים','חגיגה משפחתית','ארוחה שקטה לבד']
+  },
+  {
+    id: 'group',
+    stage: 'שלב 1 — שאלות עיקריות',
+    label: 'שאלה 5 מתוך 5',
+    q: 'כמה אנשים?',
+    hint: '',
+    placeholder: 'למשל: 2, 6 כולל ילדים, 10 אנשים...',
+    chips: [],
+    isNumberInput: true
+  }
 ];
 
+// Stage 2: optional refinements shown all at once
+const stage2Fields = [
+  { id: 'diet', q: 'מגבלות תזונתיות?', chips: ['אין','כשר','טבעוני','צמחוני','ללא גלוטן'] },
+  { id: 'style_yes', q: 'מטבח מועדף?', chips: ['ים תיכוני','יפני','איטלקי','ישראלי מודרני','מקסיקני','בשרייה','מזרח תיכוני','אסייתי'], multi: true },
+  { id: 'vibe', q: 'איזו אווירה?', chips: ['אינטימי ושקט','קליל וכיפי','מכובד ורשמי','רועש וחי','בר-אוכל','בחוץ / פטיו'], multi: true },
+  { id: 'style_no', q: 'משהו להימנע?', chips: ['בשר','דגים','מטוגן','חריף'] , multi: true }
+];
+
+let inStage2 = false;
+
 function renderStep() {
-  const s = steps[cur];
-  const pct = Math.round(((cur + 1) / steps.length) * 100);
+  if (inStage2) { renderStage2(); return; }
+  const s = stage1[cur];
+  const pct = Math.round(((cur + 1) / stage1.length) * 100);
   document.getElementById('progress').style.width = pct + '%';
-  let d = `<div class="step-label">${s.label}</div>`;
+
+  let d = `<div class="stage-label">${s.stage}</div>`;
+  d += `<div class="step-label">${s.label}</div>`;
   d += `<div class="step-q">${s.q}</div>`;
   if (s.hint) d += `<div class="step-hint">${s.hint}</div>`;
-  const fval = ans[s.id + '_free'] || '';
-  d += `<div class="step-free"><textarea class="inp" rows="2" placeholder="${s.placeholder || 'הקלד.י כאן בחופשיות...'}" onchange="ans['${s.id}_free']=this.value;updateNextBtn()">${fval}</textarea></div>`;
-  if (s.chips && s.chips.length) {
-    d += '<div class="chips">';
-    s.chips.forEach(o => {
-      const isMulti = s.multi || false;
-      const isSel = ans[s.id] && (isMulti ? ans[s.id].includes(o) : ans[s.id] === o);
-      d += `<div class="chip${isSel ? ' sel' : ''}" data-step="${cur}" data-val="${o.replace(/"/g,'&quot;')}" data-multi="${isMulti}" onclick="chipClick(this)">${o}</div>`;
-    });
-    d += '</div>';
+
+  if (s.isNumberInput) {
+    const val = ans[s.id + '_free'] || '';
+    d += `<div class="step-free"><input type="number" min="1" max="50" class="inp" placeholder="מספר אנשים..." value="${val}" oninput="ans['${s.id}_free']=this.value;peopleCount=parseInt(this.value)||0;updateNextBtn()"></div>`;
+  } else {
+    const fval = ans[s.id + '_free'] || '';
+    d += `<div class="step-free"><textarea class="inp" rows="2" placeholder="${s.placeholder || 'הקלד.י כאן...'}" oninput="ans['${s.id}_free']=this.value;updateNextBtn()">${fval}</textarea></div>`;
+    if (s.chips && s.chips.length) {
+      d += '<div class="chips">';
+      s.chips.forEach(o => {
+        const isSel = ans[s.id] === o;
+        d += `<div class="chip${isSel?' sel':''}" data-step="${cur}" data-val="${o.replace(/"/g,'&quot;')}" data-multi="false" onclick="chipClick(this)">${o}</div>`;
+      });
+      d += '</div>';
+    }
   }
-  const isLast = cur === steps.length - 1;
-  const ok = isAnswered(s);
+
+  const isLast = cur === stage1.length - 1;
+  const ok = isAnsweredS1(s);
   d += '<div class="btn-row">';
   if (cur > 0) d += '<button class="btn-back" onclick="goBack()">← חזרה</button>';
   else d += '<div></div>';
-  d += `<button class="btn-next" id="btn-next" onclick="${isLast ? 'finishWizard()' : 'goNext()'}" ${ok ? '' : 'disabled'}>${isLast ? 'מצא.י לי! ✓' : 'המשך →'}</button>`;
+  if (isLast) {
+    d += `<button class="btn-next" id="btn-next" onclick="finishStage1()" ${ok?'':'disabled'}>מצא.י לי! ✓</button>`;
+  } else {
+    d += `<button class="btn-next" id="btn-next" onclick="goNext()" ${ok?'':'disabled'}>המשך →</button>`;
+  }
+  d += `<button class="btn-skip" onclick="skipStep()">דלג</button>`;
   d += '</div>';
-  if (!s.optional && !ok) d += '<button class="skip-btn" onclick="skipStep()">דלג.י על שאלה זו</button>';
+
+  if (isLast) {
+    d += `<div style="text-align:center;margin-top:1rem"><button onclick="goToStage2()" style="font-size:0.82rem;font-weight:500;color:var(--olive);background:none;border:none;cursor:pointer;font-family:'Heebo',sans-serif;text-decoration:underline">רוצה לדייק יותר ←</button></div>`;
+  }
+
+  document.getElementById('wizard-body').innerHTML = d;
+}
+
+function renderStage2() {
+  document.getElementById('progress').style.width = '100%';
+  let d = `<div class="stage-label" style="color:var(--olive)">שלב 2 — דיוק (אופציונלי)</div>`;
+  d += `<div class="step-q" style="margin-bottom:1rem">כמה שאלות נוספות שיעזרו לנו לדייק</div>`;
+
+  stage2Fields.forEach(f => {
+    const isMulti = f.multi || false;
+    d += `<div class="refinement-row">`;
+    d += `<div class="refinement-q">${f.q}</div>`;
+    d += '<div class="chips">';
+    f.chips.forEach(o => {
+      const isSel = ans[f.id] && (isMulti ? ans[f.id].includes(o) : ans[f.id] === o);
+      d += `<div class="chip${isSel?' sel':''}" data-field="${f.id}" data-val="${o.replace(/"/g,'&quot;')}" data-multi="${isMulti}" onclick="chipClickS2(this)">${o}</div>`;
+    });
+    d += '</div></div>';
+  });
+
+  d += '<div class="btn-row">';
+  d += '<button class="btn-back" onclick="backToStage1()">← חזרה</button>';
+  d += '<button class="btn-next" onclick="finishStage2()">מצא.י לי! ✓</button>';
+  d += '</div>';
+
   document.getElementById('wizard-body').innerHTML = d;
 }
 
 function chipClick(el) {
   const stepIdx = parseInt(el.dataset.step);
   const val = el.dataset.val;
-  const isMulti = el.dataset.multi === 'true';
-  const s = steps[stepIdx];
-  if (isMulti) {
-    if (!ans[s.id]) ans[s.id] = [];
-    const i = ans[s.id].indexOf(val);
-    if (i > -1) { ans[s.id].splice(i, 1); el.classList.remove('sel'); }
-    else { ans[s.id].push(val); el.classList.add('sel'); }
-  } else {
-    ans[s.id] = val;
-    document.querySelectorAll('.chip').forEach(c => c.classList.remove('sel'));
-    el.classList.add('sel');
-  }
+  const s = stage1[stepIdx];
+  ans[s.id] = val;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
   updateNextBtn();
 }
 
-function isAnswered(s) {
-  const hasChip = ans[s.id] && (Array.isArray(ans[s.id]) ? ans[s.id].length > 0 : ans[s.id] !== '');
+function chipClickS2(el) {
+  const field = el.dataset.field;
+  const val = el.dataset.val;
+  const isMulti = el.dataset.multi === 'true';
+  if (isMulti) {
+    if (!ans[field]) ans[field] = [];
+    const i = ans[field].indexOf(val);
+    if (i > -1) { ans[field].splice(i,1); el.classList.remove('sel'); }
+    else { ans[field].push(val); el.classList.add('sel'); }
+  } else {
+    ans[field] = val;
+    document.querySelectorAll(`[data-field="${field}"]`).forEach(c => c.classList.remove('sel'));
+    el.classList.add('sel');
+  }
+}
+
+function isAnsweredS1(s) {
+  const hasChip = ans[s.id] && ans[s.id] !== '';
   const hasFree = (ans[s.id + '_free'] || '').trim() !== '';
-  return s.optional || hasChip || hasFree;
+  return hasChip || hasFree;
 }
 
 function updateNextBtn() {
   const btn = document.getElementById('btn-next');
-  if (btn) btn.disabled = !isAnswered(steps[cur]);
+  if (btn && !inStage2) btn.disabled = !isAnsweredS1(stage1[cur]);
 }
 
-function goNext() { if (cur < steps.length - 1) { cur++; renderStep(); } }
+function goNext() { if (cur < stage1.length - 1) { cur++; renderStep(); } }
 function goBack() { if (cur > 0) { cur--; renderStep(); } }
-function skipStep() { ans[steps[cur].id] = ''; ans[steps[cur].id + '_free'] = ''; goNext(); }
+function skipStep() { ans[stage1[cur].id] = ''; ans[stage1[cur].id + '_free'] = ''; if (cur < stage1.length - 1) { cur++; renderStep(); } else finishStage1(); }
+function goToStage2() { inStage2 = true; renderStep(); }
+function backToStage1() { inStage2 = false; cur = stage1.length - 1; renderStep(); }
 
-async function finishWizard() {
+function buildQuery() {
   const parts = [];
-  steps.forEach(s => {
+  stage1.forEach(s => {
     const chip = ans[s.id];
     const free = ans[s.id + '_free'];
-    if (chip && (Array.isArray(chip) ? chip.length > 0 : chip)) {
-      parts.push(`${s.q} ${Array.isArray(chip) ? chip.join(', ') : chip}`);
-    }
-    if (free && free.trim()) parts.push(free.trim());
+    if (chip) parts.push(`${s.q} ${chip}`);
+    else if (free && free.trim()) parts.push(free.trim());
   });
-  currentQuery = parts.join(' | ');
-  currentOffset = 0;
-  renderedCards = [];
-  showView('view-results');
-  await doSearch();
+  stage2Fields.forEach(f => {
+    const v = ans[f.id];
+    if (v && (Array.isArray(v) ? v.length > 0 : v)) {
+      parts.push(`${f.q} ${Array.isArray(v) ? v.join(', ') : v}`);
+    }
+  });
+  return parts.join(' | ');
+}
+
+function finishStage1() {
+  currentQuery = buildQuery();
+  currentOffset = 0; renderedCards = [];
+  showView('view-results'); doSearch();
+}
+
+function finishStage2() {
+  currentQuery = buildQuery();
+  currentOffset = 0; renderedCards = [];
+  showView('view-results'); doSearch();
 }
 
 loadRestaurants();
