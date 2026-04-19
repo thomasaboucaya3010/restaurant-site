@@ -13,9 +13,11 @@
       --white: #FDFAF4; --border: rgba(59,74,45,0.13); --olive: #3B4A2D;
     }
     body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--ink); direction: rtl; min-height: 100vh; }
-    nav { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 2.5rem; height: 58px; display: flex; align-items: center; }
+    nav { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 2.5rem; height: 58px; display: flex; align-items: center; justify-content: space-between; }
     .logo { font-size: 1.5rem; font-weight: 900; color: var(--ink); letter-spacing: -1px; }
     .logo span { color: var(--burnt); }
+    .admin-badge { font-size: 0.75rem; font-weight: 700; background: var(--olive); color: white; padding: 3px 10px; border-radius: 20px; display: none; }
+    .admin-badge.show { display: block; }
     .hero { padding: 4rem 2rem 1rem; text-align: center; max-width: 620px; margin: 0 auto; }
     .hero-title { font-size: clamp(3rem, 7vw, 5rem); font-weight: 900; color: var(--ink); letter-spacing: -3px; line-height: 1; margin-bottom: 0.6rem; }
     .hero-title span { color: var(--burnt); }
@@ -62,29 +64,54 @@
     .skip-btn { font-size: 0.8rem; color: var(--ink3); background: none; border: none; cursor: pointer; font-family: 'Heebo', sans-serif; text-decoration: underline; padding: 0; margin-top: 10px; display: block; text-align: center; width: 100%; }
     .results-wrap { max-width: 580px; margin: 2rem auto 3rem; padding: 0 2rem; }
     .back-link { font-size: 0.82rem; font-weight: 500; color: var(--burnt); background: none; border: none; cursor: pointer; font-family: 'Heebo', sans-serif; margin-bottom: 1.2rem; display: block; text-align: right; }
-    .result-main { background: var(--white); border-radius: 20px; border: 2px solid var(--burnt); padding: 1.6rem; margin-bottom: 1rem; }
-    .result-badge { display: inline-block; background: var(--burnt); color: white; font-size: 0.7rem; font-weight: 700; letter-spacing: 1px; padding: 3px 10px; border-radius: 10px; margin-bottom: 0.8rem; text-transform: uppercase; }
-    .result-name { font-size: 1.3rem; font-weight: 900; color: var(--ink); letter-spacing: -0.5px; margin-bottom: 0.5rem; }
+    .result-card { background: var(--white); border-radius: 16px; border: 1px solid var(--border); padding: 1.4rem; margin-bottom: 1rem; }
+    .result-name { font-size: 1.2rem; font-weight: 900; color: var(--ink); letter-spacing: -0.5px; margin-bottom: 0.5rem; }
     .result-desc { font-size: 0.9rem; font-weight: 300; color: var(--ink2); line-height: 1.6; margin-bottom: 1rem; }
+    .result-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
     .result-link { display: inline-flex; align-items: center; gap: 5px; font-size: 0.82rem; font-weight: 700; color: var(--burnt); text-decoration: none; border: 1.5px solid var(--burnt); border-radius: 8px; padding: 5px 12px; transition: all 0.15s; }
     .result-link:hover { background: var(--burnt); color: white; }
-    .alts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .alt-card { background: var(--white); border-radius: 16px; border: 1px solid var(--border); padding: 1.2rem; }
-    .alt-name { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 0.4rem; }
-    .alt-desc { font-size: 0.82rem; font-weight: 300; color: var(--ink2); line-height: 1.5; margin-bottom: 0.8rem; }
-    .alt-link { font-size: 0.78rem; font-weight: 700; color: var(--burnt); text-decoration: none; }
+    .why-btn { font-size: 0.78rem; font-weight: 500; color: var(--ink3); background: none; border: 1px solid var(--border); border-radius: 8px; padding: 5px 10px; cursor: pointer; font-family: 'Heebo', sans-serif; transition: all 0.15s; display: none; }
+    .why-btn.show { display: inline-flex; }
+    .why-btn:hover { border-color: var(--olive); color: var(--olive); }
+    .debug-panel { background: #f0f4e8; border: 1px solid rgba(59,74,45,0.2); border-radius: 10px; padding: 1rem; margin-top: 0.8rem; display: none; direction: rtl; }
+    .debug-panel.show { display: block; }
+    .debug-title { font-size: 0.75rem; font-weight: 700; color: var(--olive); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .debug-reason { font-size: 0.85rem; color: var(--ink2); margin-bottom: 0.8rem; line-height: 1.5; }
+    .debug-fields { font-size: 0.78rem; color: var(--ink3); line-height: 1.8; }
+    .debug-fields span { color: var(--ink2); font-weight: 500; }
+    .edit-link { display: inline-flex; align-items: center; gap: 4px; font-size: 0.78rem; font-weight: 700; color: var(--olive); text-decoration: none; border: 1px solid var(--olive); border-radius: 6px; padding: 4px 10px; margin-top: 0.6rem; transition: all 0.15s; }
+    .edit-link:hover { background: var(--olive); color: white; }
+    .show-more-btn { width: 100%; padding: 12px; border-radius: 12px; border: 1.5px solid var(--border); background: transparent; font-family: 'Heebo', sans-serif; font-size: 0.9rem; font-weight: 500; color: var(--ink2); cursor: pointer; transition: all 0.15s; margin-top: 0.5rem; display: none; }
+    .show-more-btn.show { display: block; }
+    .show-more-btn:hover { border-color: var(--olive); color: var(--olive); }
     .no-results { text-align: center; padding: 3rem 1rem; color: var(--ink3); }
     .no-results strong { display: block; font-size: 1.1rem; font-weight: 700; color: var(--ink2); margin-bottom: 0.5rem; }
     .loading { text-align: center; padding: 3rem; color: var(--ink3); font-size: 0.95rem; }
     .spinner { display: inline-block; width: 22px; height: 22px; border: 2px solid var(--border); border-top-color: var(--burnt); border-radius: 50%; animation: spin 0.7s linear infinite; margin-right: 8px; vertical-align: middle; }
     @keyframes spin { to { transform: rotate(360deg); } }
     .filters-wrap { background: var(--white); border-radius: 20px; border: 1px solid var(--border); padding: 2.2rem; max-width: 580px; margin: 0 auto 3rem; }
+    .admin-login { position: fixed; bottom: 20px; left: 20px; font-size: 0.7rem; color: var(--border); cursor: pointer; user-select: none; }
+    .admin-modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 999; align-items: center; justify-content: center; }
+    .admin-modal-bg.show { display: flex; }
+    .admin-modal { background: var(--white); border-radius: 16px; padding: 2rem; width: 320px; text-align: center; }
+    .admin-modal h3 { font-size: 1rem; font-weight: 700; margin-bottom: 1rem; color: var(--ink); }
+    .admin-modal input { width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 10px; font-family: 'Heebo', sans-serif; font-size: 0.95rem; margin-bottom: 1rem; outline: none; text-align: center; }
+    .admin-modal input:focus { border-color: var(--olive); }
+    .admin-modal-btn { width: 100%; padding: 11px; border-radius: 10px; border: none; background: var(--olive); font-family: 'Heebo', sans-serif; font-size: 0.95rem; font-weight: 700; color: white; cursor: pointer; }
+    .admin-error { font-size: 0.82rem; color: var(--burnt); margin-top: 0.5rem; display: none; }
+    .results-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.2rem; }
+    .results-title { font-size: 1.1rem; font-weight: 700; color: var(--ink); }
+    .results-count { font-size: 0.8rem; color: var(--ink3); font-weight: 300; }
   </style>
 </head>
 <body>
 
-<nav><div class="logo">מסעדאטא<span>.</span></div></nav>
+<nav>
+  <div class="logo">מסעדאטא<span>.</span></div>
+  <div class="admin-badge" id="admin-badge">מצב עריכה</div>
+</nav>
 
+<!-- HOME -->
 <div id="view-home">
   <div class="hero">
     <div class="hero-title">מסעדאטא<span>.</span></div>
@@ -111,6 +138,7 @@
   <button class="btn-filter" onclick="showView('view-filters')">חיפוש עצמאי עם פילטרים ←</button>
 </div>
 
+<!-- WIZARD -->
 <div id="view-wizard" style="display:none">
   <div style="max-width:580px;margin:2rem auto 1rem;padding:0 2rem;display:flex;justify-content:flex-end">
     <button onclick="showView('view-home')" style="font-size:0.82rem;font-weight:500;color:var(--burnt);background:none;border:none;cursor:pointer;font-family:'Heebo',sans-serif">← חזרה לדף הבית</button>
@@ -121,13 +149,16 @@
   </div>
 </div>
 
+<!-- RESULTS -->
 <div id="view-results" style="display:none">
   <div class="results-wrap">
     <button class="back-link" onclick="showView('view-home')">← חיפוש חדש</button>
     <div id="results-body"><div class="loading"><span class="spinner"></span>מחפש.ת את המקום המושלם...</div></div>
+    <button class="show-more-btn" id="show-more-btn" onclick="loadMore()">הצג עוד מסעדות ←</button>
   </div>
 </div>
 
+<!-- FILTERS -->
 <div id="view-filters" style="display:none">
   <div style="max-width:580px;margin:2rem auto 1rem;padding:0 2rem;display:flex;justify-content:flex-end">
     <button onclick="showView('view-home')" style="font-size:0.82rem;font-weight:500;color:var(--burnt);background:none;border:none;cursor:pointer;font-family:'Heebo',sans-serif">← חזרה</button>
@@ -144,13 +175,33 @@
   </div>
 </div>
 
+<!-- ADMIN LOGIN MODAL -->
+<div class="admin-modal-bg" id="admin-modal">
+  <div class="admin-modal">
+    <h3>כניסת מנהל</h3>
+    <input type="password" id="admin-pw" placeholder="סיסמה" onkeydown="if(event.key==='Enter')checkAdmin()">
+    <button class="admin-modal-btn" onclick="checkAdmin()">כניסה</button>
+    <div class="admin-error" id="admin-error">סיסמה שגויה</div>
+    <div style="margin-top:1rem"><button onclick="closeAdminModal()" style="font-size:0.82rem;color:var(--ink3);background:none;border:none;cursor:pointer;font-family:'Heebo',sans-serif">ביטול</button></div>
+  </div>
+</div>
+
+<div class="admin-login" onclick="openAdminModal()">⚙</div>
+
 <script>
 const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTKvxSYmsFCDHcDtIl2DWhISC_IdOGwmPDcML1XzJhxjLT5V5yjl5PnGfq8p3wdxMSULOX5BPSa05Fk/pub?gid=0&single=true&output=csv';
+const SHEET_EDIT_URL = 'https://docs.google.com/spreadsheets/d/1REPLACE_WITH_YOUR_SHEET_ID/edit';
+const ADMIN_PASSWORD = 'misadata2024';
 
 let restaurants = [];
 let mode = null;
 let cur = 0;
 let ans = {};
+let isAdmin = false;
+let currentQuery = '';
+let currentOffset = 0;
+let currentHasMore = false;
+let renderedCards = [];
 
 async function loadRestaurants() {
   try {
@@ -158,9 +209,9 @@ async function loadRestaurants() {
     const text = await res.text();
     const lines = text.trim().split('\n');
     const headers = lines[0].split(',').map(h => h.replace(/"/g,'').trim());
-    restaurants = lines.slice(1).filter(l => l.trim()).map(line => {
+    restaurants = lines.slice(1).filter(l => l.trim()).map((line, rowIdx) => {
       const vals = parseCSV(line);
-      const obj = {};
+      const obj = { _rowIndex: rowIdx + 2 };
       headers.forEach((h,i) => obj[h] = (vals[i]||'').replace(/^"|"$/g,'').trim());
       return obj;
     });
@@ -181,6 +232,26 @@ function parseCSV(line) {
   return result;
 }
 
+// ADMIN
+function openAdminModal() { document.getElementById('admin-modal').classList.add('show'); document.getElementById('admin-pw').focus(); }
+function closeAdminModal() { document.getElementById('admin-modal').classList.remove('show'); document.getElementById('admin-pw').value = ''; document.getElementById('admin-error').style.display = 'none'; }
+function checkAdmin() {
+  const pw = document.getElementById('admin-pw').value;
+  if (pw === ADMIN_PASSWORD) {
+    isAdmin = true;
+    closeAdminModal();
+    document.getElementById('admin-badge').classList.add('show');
+    document.querySelectorAll('.why-btn').forEach(b => b.classList.add('show'));
+  } else {
+    document.getElementById('admin-error').style.display = 'block';
+  }
+}
+
+function toggleDebug(idx) {
+  const panel = document.getElementById('debug-' + idx);
+  if (panel) panel.classList.toggle('show');
+}
+
 function selectMode(m) {
   mode = m;
   document.getElementById('opt-free').classList.toggle('sel', m === 'free');
@@ -199,9 +270,11 @@ function checkFreeBtn() {
 function handleMain() {
   if (mode === 'guided') { ans = {}; cur = 0; showView('view-wizard'); renderStep(); }
   else {
-    const text = document.querySelector('#free-input textarea').value;
+    currentQuery = document.querySelector('#free-input textarea').value;
+    currentOffset = 0;
+    renderedCards = [];
     showView('view-results');
-    searchWithAI(text);
+    doSearch();
   }
 }
 
@@ -211,9 +284,10 @@ function showView(id) {
   });
   if (id === 'view-results') {
     document.getElementById('results-body').innerHTML = '<div class="loading"><span class="spinner"></span>מחפש.ת את המקום המושלם...</div>';
+    document.getElementById('show-more-btn').classList.remove('show');
   }
   if (id === 'view-home') {
-    mode = null; ans = {}; cur = 0;
+    mode = null; ans = {}; cur = 0; currentOffset = 0; renderedCards = [];
     document.getElementById('opt-free').classList.remove('sel');
     document.getElementById('opt-guided').classList.remove('sel');
     document.getElementById('free-input').classList.remove('show');
@@ -222,52 +296,108 @@ function showView(id) {
   }
 }
 
-async function searchWithAI(query) {
-  if (!restaurants.length) { renderResults([]); return; }
+async function doSearch() {
+  if (!restaurants.length) { renderResults([], false, 0); return; }
   try {
     const res = await fetch('/.netlify/functions/search', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query, restaurants })
+      body: JSON.stringify({ query: currentQuery, restaurants, offset: currentOffset, count: 3 })
     });
     const data = await res.json();
-    const indices = data.result.split(',').map(n => parseInt(n.trim()) - 1).filter(n => !isNaN(n) && n >= 0 && n < restaurants.length);
-    const matches = indices.map(i => restaurants[i]).filter(Boolean);
-    renderResults(matches.length ? matches : restaurants.slice(0, 3));
+    currentHasMore = data.hasMore;
+    renderResults(data.results || [], data.hasMore, data.totalFound, currentOffset === 0);
+    currentOffset += (data.results || []).length;
   } catch(e) {
     console.error('Search failed', e);
-    renderResults(restaurants.slice(0, 3));
+    renderResults(restaurants.slice(0, 3).map(r => ({ restaurant: r, reason: 'התאמה כללית' })), false, 3, true);
   }
 }
 
+function loadMore() {
+  document.getElementById('show-more-btn').classList.remove('show');
+  const loadingDiv = document.createElement('div');
+  loadingDiv.className = 'loading';
+  loadingDiv.innerHTML = '<span class="spinner"></span>מחפש עוד...';
+  loadingDiv.id = 'loading-more';
+  document.getElementById('results-body').appendChild(loadingDiv);
+  doSearch();
+}
+
 function searchWithFilters() {
-  showView('view-results');
   const city = document.getElementById('f-city').value;
   const price = document.getElementById('f-price').value;
   const vibe = document.getElementById('f-vibe').value;
   const diet = document.getElementById('f-diet').value;
-  const query = [city, price, vibe, diet].filter(Boolean).join(', ');
-  searchWithAI(query || 'המלצה כללית');
+  currentQuery = [city, price, vibe, diet].filter(Boolean).join(', ') || 'המלצה כללית';
+  currentOffset = 0;
+  renderedCards = [];
+  showView('view-results');
+  doSearch();
 }
 
-function renderResults(matches) {
-  if (!matches || !matches.length) {
-    document.getElementById('results-body').innerHTML = '<div class="no-results"><strong>לא מצאנו תוצאות</strong>נסה.י לחפש שוב עם פרטים שונים</div>';
-    return;
+function renderResults(results, hasMore, totalFound, isFirstPage = true) {
+  const loadingMore = document.getElementById('loading-more');
+  if (loadingMore) loadingMore.remove();
+
+  if (isFirstPage) {
+    if (!results || !results.length) {
+      document.getElementById('results-body').innerHTML = '<div class="no-results"><strong>לא מצאנו תוצאות</strong>נסה.י לחפש שוב עם פרטים שונים</div>';
+      return;
+    }
+    const header = `<div class="results-header"><div class="results-title">המלצות בשבילך</div><div class="results-count">${totalFound} מסעדות עברו סינון</div></div>`;
+    document.getElementById('results-body').innerHTML = header;
   }
-  const card = (r, isMain) => {
-    const link = r.website ? `<a href="${r.website}" target="_blank" class="${isMain ? 'result-link' : 'alt-link'}">${isMain ? 'לאתר המסעדה ↗' : 'לאתר ↗'}</a>` : '';
-    if (isMain) return `<div class="result-main"><span class="result-badge">ההמלצה שלנו</span><div class="result-name">${r.name}</div><div class="result-desc">${r.my_tip || ''}</div>${link}</div>`;
-    return `<div class="alt-card"><div class="alt-name">${r.name}</div><div class="alt-desc">${r.my_tip || ''}</div>${link}</div>`;
-  };
-  let html = `<div style="font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:1.2rem">נמצאו ${Math.min(matches.length,3)} המלצות בשבילך.ך</div>`;
-  html += card(matches[0], true);
-  if (matches.length > 1) {
-    html += '<div class="alts">';
-    matches.slice(1, 3).forEach(r => html += card(r, false));
-    html += '</div>';
+
+  const startIdx = renderedCards.length;
+  results.forEach((item, i) => {
+    const idx = startIdx + i;
+    const r = item.restaurant;
+    const reason = item.reason || '';
+    renderedCards.push(r);
+
+    const editUrl = SHEET_EDIT_URL;
+    const link = r.website ? `<a href="${r.website}" target="_blank" class="result-link">לאתר ↗</a>` : '';
+
+    const debugFields = `
+      <div class="debug-fields">
+        עיר: <span>${r.location_city || '—'}</span> |
+        שכונה: <span>${r.location_neighborhood || '—'}</span> |
+        סגנון: <span>${r.style || '—'}</span><br>
+        מחיר: <span>${r.price_range || '—'}</span> |
+        אווירה: <span>${r.vibe || '—'}</span> |
+        כשר: <span>${r.kosher || '—'}</span><br>
+        דיאטה: <span>${r.diet || '—'}</span> |
+        זמן: <span>${r.time_of_day || '—'}</span> |
+        ימים: <span>${r.day || '—'}</span><br>
+        מתאים ל: <span>${r.occasion || '—'}</span> |
+        קבוצה: <span>${r.group_size || '—'}</span>
+      </div>
+      <a href="${editUrl}" target="_blank" class="edit-link">✏ ערוך בגיליון</a>`;
+
+    const card = document.createElement('div');
+    card.className = 'result-card';
+    card.innerHTML = `
+      <div class="result-name">${r.name}</div>
+      <div class="result-desc">${r.my_tip || ''}</div>
+      <div class="result-actions">
+        ${link}
+        <button class="why-btn ${isAdmin ? 'show' : ''}" onclick="toggleDebug(${idx})">למה זה נבחר?</button>
+      </div>
+      <div class="debug-panel" id="debug-${idx}">
+        <div class="debug-title">סיבת הבחירה</div>
+        <div class="debug-reason">${reason}</div>
+        ${debugFields}
+      </div>`;
+    document.getElementById('results-body').appendChild(card);
+  });
+
+  const showMoreBtn = document.getElementById('show-more-btn');
+  if (hasMore) {
+    showMoreBtn.classList.add('show');
+  } else {
+    showMoreBtn.classList.remove('show');
   }
-  document.getElementById('results-body').innerHTML = html;
 }
 
 const steps = [
@@ -295,7 +425,7 @@ function renderStep() {
   d += `<div class="step-free"><textarea class="inp" rows="2" placeholder="${s.placeholder || 'הקלד.י כאן בחופשיות...'}" onchange="ans['${s.id}_free']=this.value;updateNextBtn()">${fval}</textarea></div>`;
   if (s.chips && s.chips.length) {
     d += '<div class="chips">';
-    s.chips.forEach((o, idx) => {
+    s.chips.forEach(o => {
       const isMulti = s.multi || false;
       const isSel = ans[s.id] && (isMulti ? ans[s.id].includes(o) : ans[s.id] === o);
       d += `<div class="chip${isSel ? ' sel' : ''}" data-step="${cur}" data-val="${o.replace(/"/g,'&quot;')}" data-multi="${isMulti}" onclick="chipClick(this)">${o}</div>`;
@@ -347,7 +477,6 @@ function goBack() { if (cur > 0) { cur--; renderStep(); } }
 function skipStep() { ans[steps[cur].id] = ''; ans[steps[cur].id + '_free'] = ''; goNext(); }
 
 async function finishWizard() {
-  showView('view-results');
   const parts = [];
   steps.forEach(s => {
     const chip = ans[s.id];
@@ -357,7 +486,11 @@ async function finishWizard() {
     }
     if (free && free.trim()) parts.push(free.trim());
   });
-  await searchWithAI(parts.join(' | '));
+  currentQuery = parts.join(' | ');
+  currentOffset = 0;
+  renderedCards = [];
+  showView('view-results');
+  await doSearch();
 }
 
 loadRestaurants();
