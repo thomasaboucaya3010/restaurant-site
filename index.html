@@ -8,15 +8,9 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --cream: #F7F3EC;
-      --burnt: #C4622D;
-      --burnt2: #D97440;
-      --ink: #1A1A16;
-      --ink2: #4A4A42;
-      --ink3: #8A8A80;
-      --white: #FDFAF4;
-      --border: rgba(59,74,45,0.13);
-      --olive: #3B4A2D;
+      --cream: #F7F3EC; --burnt: #C4622D; --burnt2: #D97440;
+      --ink: #1A1A16; --ink2: #4A4A42; --ink3: #8A8A80;
+      --white: #FDFAF4; --border: rgba(59,74,45,0.13); --olive: #3B4A2D;
     }
     body { font-family: 'Heebo', sans-serif; background: var(--cream); color: var(--ink); direction: rtl; min-height: 100vh; }
     nav { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 2.5rem; height: 58px; display: flex; align-items: center; }
@@ -30,7 +24,7 @@
     .main-card { background: var(--white); border-radius: 20px; border: 1px solid var(--border); padding: 2.2rem; max-width: 580px; margin: 0 auto 1.6rem; }
     .main-q { font-size: 1.15rem; font-weight: 700; color: var(--ink); margin-bottom: 1.4rem; }
     .option-row { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1.8rem; }
-    .opt { border: 1.5px solid var(--border); border-radius: 14px; padding: 1.1rem 1.4rem; cursor: pointer; text-align: right; background: var(--cream); transition: all 0.15s; display: flex; flex-direction: column; gap: 3px; }
+    .opt { border: 1.5px solid var(--border); border-radius: 14px; padding: 1.1rem 1.4rem; cursor: pointer; background: var(--cream); transition: all 0.15s; display: flex; flex-direction: column; gap: 3px; }
     .opt:hover { border-color: var(--burnt2); }
     .opt.sel { border-color: var(--burnt); background: var(--white); }
     .opt-title { font-size: 0.95rem; font-weight: 700; color: var(--ink); }
@@ -40,6 +34,7 @@
     .inp { width: 100%; padding: 11px 15px; border: 1.5px solid var(--border); border-radius: 12px; font-family: 'Heebo', sans-serif; font-size: 0.95rem; background: var(--cream); color: var(--ink); direction: rtl; outline: none; transition: border-color 0.15s; resize: none; }
     .inp:focus { border-color: var(--burnt); }
     .inp::placeholder { color: var(--ink3); }
+    select.inp { cursor: pointer; }
     .btn-main { width: 100%; padding: 13px; border-radius: 12px; border: none; background: var(--burnt); font-family: 'Heebo', sans-serif; font-size: 1rem; font-weight: 700; color: white; cursor: pointer; transition: background 0.15s; }
     .btn-main:hover { background: var(--burnt2); }
     .btn-main:disabled { background: var(--border); color: var(--ink3); cursor: not-allowed; }
@@ -55,9 +50,9 @@
     .step-hint { font-size: 0.8rem; font-weight: 300; color: var(--ink3); margin-bottom: 0.9rem; }
     .step-free { margin-bottom: 0.9rem; }
     .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 0.5rem; }
-    .chip { padding: 7px 14px; border-radius: 20px; border: 1.5px solid var(--border); font-family: 'Heebo', sans-serif; font-size: 0.83rem; font-weight: 500; color: var(--ink2); background: var(--cream); cursor: pointer; transition: all 0.15s; }
-    .chip:hover { border-color: var(--burnt2); color: var(--burnt); }
-    .chip.sel { border-color: var(--burnt); background: var(--burnt); color: white; }
+    .chip { padding: 7px 14px; border-radius: 20px; border: 1.5px solid var(--border); font-family: 'Heebo', sans-serif; font-size: 0.83rem; font-weight: 500; color: var(--ink2); background: var(--cream); cursor: pointer; transition: all 0.15s; user-select: none; -webkit-user-select: none; }
+    .chip:hover { border-color: var(--burnt2); color: var(--burnt); background: var(--white); }
+    .chip.sel { border-color: var(--burnt) !important; background: var(--burnt) !important; color: white !important; }
     .btn-row { display: flex; gap: 10px; align-items: center; margin-top: 1.6rem; }
     .btn-back { padding: 10px 20px; border-radius: 12px; border: 1.5px solid var(--border); background: transparent; font-family: 'Heebo', sans-serif; font-size: 0.9rem; font-weight: 500; color: var(--ink3); cursor: pointer; white-space: nowrap; }
     .btn-back:hover { color: var(--ink); border-color: var(--ink3); }
@@ -78,8 +73,8 @@
     .alt-name { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 0.4rem; }
     .alt-desc { font-size: 0.82rem; font-weight: 300; color: var(--ink2); line-height: 1.5; margin-bottom: 0.8rem; }
     .alt-link { font-size: 0.78rem; font-weight: 700; color: var(--burnt); text-decoration: none; }
-    .no-results { text-align: center; padding: 3rem 1rem; color: var(--ink3); font-size: 0.95rem; font-weight: 300; }
-    .no-results strong { display: block; font-size: 1.2rem; font-weight: 700; color: var(--ink2); margin-bottom: 0.5rem; }
+    .no-results { text-align: center; padding: 3rem 1rem; color: var(--ink3); }
+    .no-results strong { display: block; font-size: 1.1rem; font-weight: 700; color: var(--ink2); margin-bottom: 0.5rem; }
     .loading { text-align: center; padding: 3rem; color: var(--ink3); font-size: 0.95rem; }
     .spinner { display: inline-block; width: 22px; height: 22px; border: 2px solid var(--border); border-top-color: var(--burnt); border-radius: 50%; animation: spin 0.7s linear infinite; margin-right: 8px; vertical-align: middle; }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -90,6 +85,7 @@
 
 <nav><div class="logo">מסעדאטא<span>.</span></div></nav>
 
+<!-- HOME -->
 <div id="view-home">
   <div class="hero">
     <div class="hero-title">מסעדאטא<span>.</span></div>
@@ -116,6 +112,7 @@
   <button class="btn-filter" onclick="showView('view-filters')">חיפוש עצמאי עם פילטרים ←</button>
 </div>
 
+<!-- WIZARD -->
 <div id="view-wizard" style="display:none">
   <div style="max-width:580px;margin:2rem auto 1rem;padding:0 2rem;display:flex;justify-content:flex-end">
     <button onclick="showView('view-home')" style="font-size:0.82rem;font-weight:500;color:var(--burnt);background:none;border:none;cursor:pointer;font-family:'Heebo',sans-serif">← חזרה לדף הבית</button>
@@ -126,6 +123,7 @@
   </div>
 </div>
 
+<!-- RESULTS -->
 <div id="view-results" style="display:none">
   <div class="results-wrap">
     <button class="back-link" onclick="showView('view-home')">← חיפוש חדש</button>
@@ -133,6 +131,7 @@
   </div>
 </div>
 
+<!-- FILTERS -->
 <div id="view-filters" style="display:none">
   <div style="max-width:580px;margin:2rem auto 1rem;padding:0 2rem;display:flex;justify-content:flex-end">
     <button onclick="showView('view-home')" style="font-size:0.82rem;font-weight:500;color:var(--burnt);background:none;border:none;cursor:pointer;font-family:'Heebo',sans-serif">← חזרה</button>
@@ -140,242 +139,261 @@
   <div class="filters-wrap">
     <div style="font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:1.4rem">חיפוש עם פילטרים</div>
     <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:1.4rem">
-      <select class="inp" id="f-city" style="cursor:pointer"><option value="">כל הערים / אזורים</option><option>תל אביב</option><option>ירושלים</option><option>חיפה</option><option>הגליל</option><option>הנגב</option></select>
-      <select class="inp" id="f-type" style="cursor:pointer"><option value="">סוג עסק</option><option>מסעדה</option><option>בר</option><option>בית קפה</option></select>
-      <select class="inp" id="f-price" style="cursor:pointer"><option value="">תקציב לאדם</option><option>עד 50 ₪</option><option>50–100 ₪</option><option>100–200 ₪</option><option>יקר אבל לא מוגזם</option><option>אין הגבלה</option></select>
-      <select class="inp" id="f-vibe" style="cursor:pointer"><option value="">אווירה</option><option>אינטימי ושקט</option><option>קליל וכיפי</option><option>מכובד ורשמי</option><option>רועש וחי</option></select>
-      <select class="inp" id="f-diet" style="cursor:pointer"><option value="">דיאטה</option><option>טבעוני</option><option>צמחוני</option><option>ללא גלוטן</option><option>כשר</option></select>
+      <select class="inp" id="f-city"><option value="">כל הערים / אזורים</option><option>תל אביב</option><option>ירושלים</option><option>חיפה</option><option>הגליל</option><option>הנגב</option></select>
+      <select class="inp" id="f-price"><option value="">תקציב לאדם</option><option>עד 50 ₪</option><option>50–100 ₪</option><option>100–200 ₪</option><option>יקר אבל לא מוגזם</option><option>אין הגבלה</option></select>
+      <select class="inp" id="f-vibe"><option value="">אווירה</option><option>אינטימי ושקט</option><option>קליל וכיפי</option><option>מכובד ורשמי</option><option>רועש וחי</option></select>
+      <select class="inp" id="f-diet"><option value="">דיאטה</option><option>טבעוני</option><option>צמחוני</option><option>ללא גלוטן</option><option>כשר</option></select>
     </div>
     <button class="btn-main" onclick="searchWithFilters()">חפש.י</button>
   </div>
 </div>
 
 <script>
-  const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTKvxSYmsFCDHcDtIl2DWhISC_IdOGwmPDcML1XzJhxjLT5V5yjl5PnGfq8p3wdxMSULOX5BPSa05Fk/pub?gid=0&single=true&output=csv';
+const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTKvxSYmsFCDHcDtIl2DWhISC_IdOGwmPDcML1XzJhxjLT5V5yjl5PnGfq8p3wdxMSULOX5BPSa05Fk/pub?gid=0&single=true&output=csv';
 
-  let restaurants = [];
-  let mode = null;
-  let cur = 0;
-  const ans = {};
+let restaurants = [];
+let mode = null;
+let cur = 0;
+let ans = {};
 
-  async function loadRestaurants() {
-    try {
-      const res = await fetch(SHEET_URL);
-      const text = await res.text();
-      const lines = text.trim().split('\n');
-      const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
-      restaurants = lines.slice(1).map(line => {
-        const vals = parseCSVLine(line);
-        const obj = {};
-        headers.forEach((h, i) => obj[h] = (vals[i] || '').trim().replace(/"/g, ''));
-        return obj;
-      });
-    } catch(e) {
-      console.error('Could not load restaurants', e);
-    }
-  }
-
-  function parseCSVLine(line) {
-    const result = [];
-    let cur = '';
-    let inQuotes = false;
-    for (let i = 0; i < line.length; i++) {
-      const ch = line[i];
-      if (ch === '"') { inQuotes = !inQuotes; }
-      else if (ch === ',' && !inQuotes) { result.push(cur); cur = ''; }
-      else { cur += ch; }
-    }
-    result.push(cur);
-    return result;
-  }
-
-  function scoreRestaurant(r, answers) {
-    let score = 0;
-    const check = (field, val) => {
-      if (!val || !r[field]) return;
-      const fieldVals = r[field].split(',').map(v => v.trim());
-      if (fieldVals.some(fv => fv.includes(val) || val.includes(fv))) score++;
-    };
-    const loc = answers.location || answers.location_free || '';
-    check('location_city', loc);
-    check('location_neighborhood', loc);
-    check('location_area', loc);
-    check('time_of_day', answers.time_of_day);
-    check('occasion', answers.occasion);
-    check('group_size', answers.group);
-    if (answers.style_yes && Array.isArray(answers.style_yes)) {
-      answers.style_yes.forEach(s => check('style', s));
-    }
-    check('price_range', answers.price);
-    check('kosher', answers.kosher);
-    check('diet', answers.diet);
-    if (answers.vibe && Array.isArray(answers.vibe)) {
-      answers.vibe.forEach(v => check('vibe', v));
-    }
-    check('day', answers.day);
-    return score;
-  }
-
-  function getTopMatches(answers, count = 3) {
-    if (!restaurants.length) return [];
-    const scored = restaurants.map(r => ({ r, score: scoreRestaurant(r, answers) }));
-    scored.sort((a, b) => b.score - a.score);
-    return scored.slice(0, count).map(s => s.r);
-  }
-
-  function renderResults(matches) {
-    if (!matches.length) {
-      document.getElementById('results-body').innerHTML = `<div class="no-results"><strong>לא מצאנו תוצאות</strong>נסה.י לחפש שוב עם פרטים שונים</div>`;
-      return;
-    }
-    const card = (r, isMain) => {
-      const link = r.website ? `<a href="${r.website}" target="_blank" class="${isMain ? 'result-link' : 'alt-link'}">${isMain ? 'לאתר המסעדה ↗' : 'לאתר ↗'}</a>` : '';
-      if (isMain) {
-        return `<div class="result-main"><span class="result-badge">ההמלצה שלנו</span><div class="result-name">${r.name}</div><div class="result-desc">${r.my_tip || ''}</div>${link}</div>`;
-      }
-      return `<div class="alt-card"><div class="alt-name">${r.name}</div><div class="alt-desc">${r.my_tip || ''}</div>${link}</div>`;
-    };
-    let html = `<div style="font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:1.2rem">נמצאו ${matches.length} המלצות בשבילך.ך</div>`;
-    html += card(matches[0], true);
-    if (matches.length > 1) {
-      html += `<div class="alts">`;
-      matches.slice(1).forEach(r => html += card(r, false));
-      html += `</div>`;
-    }
-    document.getElementById('results-body').innerHTML = html;
-  }
-
-  function searchWithFilters() {
-    showView('view-results');
-    const filterAns = {
-      location: document.getElementById('f-city').value,
-      price: document.getElementById('f-price').value,
-      vibe: [document.getElementById('f-vibe').value].filter(Boolean),
-      diet: document.getElementById('f-diet').value,
-    };
-    setTimeout(() => renderResults(getTopMatches(filterAns)), 300);
-  }
-
-  const steps = [
-    { id:'location', label:'שאלה 1 מתוך 11', q:'איפה את.ה מחפש.ת?', hint:'אזור, עיר, או שכונה בתל אביב', placeholder:'למשל: פלורנטין, תל אביב, הגליל התחתון...', chips:['תל אביב (כללי)','פלורנטין','נווה צדק','יפו','הצפון הישן','ירושלים','חיפה','הגליל','הנגב'], optional:false },
-    { id:'time_of_day', label:'שאלה 2 מתוך 11', q:'מתי ביום?', hint:'', placeholder:'למשל: ערב מאוחר אחרי 22:00...', chips:["בוקר / בראנץ'","צהריים","ערב","לייט נייט / מאנץ'"], optional:false },
-    { id:'occasion', label:'שאלה 3 מתוך 11', q:'מה האירוע?', hint:'', placeholder:'למשל: יומולדת 30 של אחי, ארוחה לפני קולנוע...', chips:['ארוחה רגילה','יומולדת','דייט','ארוחת עסקים','חגיגה משפחתית','ארוחה שקטה לבד'], optional:false },
-    { id:'group', label:'שאלה 4 מתוך 11', q:'עם מי את.ה?', hint:'', placeholder:'למשל: 8 אנשים כולל 2 ילדים...', chips:['לבד','עם בת.ן זוג','2–3 חברים.ות','4–6 אנשים','6+ משפחה / קבוצה גדולה'], optional:false },
-    { id:'style_yes', label:'שאלה 5 מתוך 11', q:'סגנון מועדף?', hint:'אפשר לבחור כמה', placeholder:'למשל: אוכל ים תיכוני, מטבח יפני...', chips:['ים תיכוני','יפני / סושי','איטלקי','ישראלי מודרני','מקסיקני','בשרייה','פיצה','מזרח תיכוני','אסייתי'], optional:true, multi:true },
-    { id:'style_no', label:'שאלה 6 מתוך 11', q:'סגנון להימנע ממנו?', hint:'אופציונלי', placeholder:'למשל: לא בשר, לא יפני...', chips:['בשר','דגים ופירות ים','אוכל מטוגן','אוכל חריף','מטבח אסייתי'], optional:true, multi:true },
-    { id:'price', label:'שאלה 7 מתוך 11', q:'מה התקציב לאדם?', hint:'', placeholder:'', chips:['כמה שיותר זול','עד 50 ₪','50–100 ₪','100–200 ₪','יקר אבל לא מוגזם','אין הגבלה'], optional:false },
-    { id:'kosher', label:'שאלה 8 מתוך 11', q:'חשוב שיהיה כשר?', hint:'', placeholder:'', chips:['כן, חייב כשר','עדיף כשר','לא משנה'], optional:false },
-    { id:'diet', label:'שאלה 9 מתוך 11', q:'יש צמחונים.ות / טבעונים.ות בקבוצה?', hint:'', placeholder:'', chips:['לא','יש צמחונים — צריך אופציות','יש טבעונים — חייב מספיק אפשרויות','הכל צמחוני / טבעוני'], optional:false },
-    { id:'vibe', label:'שאלה 10 מתוך 11', q:'איזו אווירה?', hint:'אפשר לבחור כמה', placeholder:'למשל: שקט ורגוע, רוצה מוזיקה...', chips:['אינטימי ושקט','קליל וכיפי','מכובד ורשמי','רועש וחי','בחוץ / פטיו','בר-אוכל'], optional:false, multi:true },
-    { id:'day', label:'שאלה 11 מתוך 11', q:'באיזה יום?', hint:'', placeholder:'', chips:["אמצע שבוע (א'–ה')",'שישי','שבת','לא משנה'], optional:false }
-  ];
-
-  function selectMode(m) {
-    mode = m;
-    document.getElementById('opt-free').classList.toggle('sel', m === 'free');
-    document.getElementById('opt-guided').classList.toggle('sel', m === 'guided');
-    document.getElementById('free-input').classList.toggle('show', m === 'free');
-    const btn = document.getElementById('btn-main');
-    if (m === 'guided') { btn.disabled = false; btn.textContent = 'התחל.י בשאלות ←'; }
-    else { btn.textContent = 'חפש.י'; checkFreeBtn(); }
-  }
-
-  function checkFreeBtn() {
-    if (mode !== 'free') return;
-    const val = document.querySelector('#free-input textarea').value.trim();
-    document.getElementById('btn-main').disabled = val.length < 3;
-  }
-
-  function handleMain() {
-    if (mode === 'guided') { cur = 0; showView('view-wizard'); renderStep(); }
-    else {
-      showView('view-results');
-      const freeText = document.querySelector('#free-input textarea').value;
-      setTimeout(() => renderResults(getTopMatches({ location_free: freeText })), 300);
-    }
-  }
-
-  function showView(id) {
-    ['view-home','view-wizard','view-results','view-filters'].forEach(v => {
-      document.getElementById(v).style.display = v === id ? 'block' : 'none';
+async function loadRestaurants() {
+  try {
+    const res = await fetch(SHEET_URL);
+    const text = await res.text();
+    const lines = text.trim().split('\n');
+    const headers = lines[0].split(',').map(h => h.replace(/"/g,'').trim());
+    restaurants = lines.slice(1).filter(l => l.trim()).map(line => {
+      const vals = parseCSV(line);
+      const obj = {};
+      headers.forEach((h,i) => obj[h] = (vals[i]||'').replace(/^"|"$/g,'').trim());
+      return obj;
     });
-    if (id === 'view-results') {
-      document.getElementById('results-body').innerHTML = '<div class="loading"><span class="spinner"></span>מחפש.ת את המקום המושלם...</div>';
-    }
-    if (id === 'view-home') {
-      mode = null;
-      document.getElementById('opt-free').classList.remove('sel');
-      document.getElementById('opt-guided').classList.remove('sel');
-      document.getElementById('free-input').classList.remove('show');
-      const btn = document.getElementById('btn-main');
-      btn.disabled = true; btn.textContent = 'חפש.י';
-    }
+    console.log('Loaded', restaurants.length, 'restaurants');
+  } catch(e) {
+    console.error('Could not load restaurants', e);
   }
+}
 
-  function renderStep() {
-    const s = steps[cur];
-    const pct = Math.round(((cur + 1) / steps.length) * 100);
-    document.getElementById('progress').style.width = pct + '%';
-    let d = `<div class="step-label">${s.label}</div>`;
-    d += `<div class="step-q">${s.q}</div>`;
-    if (s.hint) d += `<div class="step-hint">${s.hint}</div>`;
-    const fval = ans[s.id + '_free'] || '';
-    d += `<div class="step-free"><textarea class="inp" rows="2" id="free-field" placeholder="${s.placeholder || 'הקלד.י כאן בחופשיות...'}" oninput="ans['${s.id}_free']=this.value;recheck()">${fval}</textarea></div>`;
-    if (s.chips && s.chips.length) {
-      d += `<div class="chips" id="cw">`;
-      s.chips.forEach(o => {
-        const multi = s.multi || false;
-        const sel = ans[s.id] && (Array.isArray(ans[s.id]) ? ans[s.id].includes(o) : ans[s.id] === o);
-        d += `<div class="chip${sel ? ' sel' : ''}" onclick="tc(this,'${s.id}',${JSON.stringify(o)},${multi})">${o}</div>`;
-      });
-      d += `</div>`;
-    }
-    const isLast = cur === steps.length - 1;
-    const hasChip = ans[s.id] && (Array.isArray(ans[s.id]) ? ans[s.id].length > 0 : ans[s.id] !== '');
-    const hasFree = (ans[s.id + '_free'] || '').trim() !== '';
-    const ok = s.optional || (hasChip || hasFree);
-    d += `<div class="btn-row">`;
-    if (cur > 0) d += `<button class="btn-back" onclick="gb()">← חזרה</button>`;
-    else d += `<div></div>`;
-    d += `<button class="btn-next" id="btn-next" onclick="${isLast ? 'finishWizard()' : 'ns()'}" ${ok ? '' : 'disabled'}>${isLast ? 'מצא.י לי! ✓' : 'המשך →'}</button>`;
-    d += `</div>`;
-    if (!s.optional && !ok) d += `<button class="skip-btn" onclick="skip()">דלג.י על שאלה זו</button>`;
-    document.getElementById('wizard-body').innerHTML = d;
+function parseCSV(line) {
+  const result = []; let cur = ''; let inQ = false;
+  for (let i = 0; i < line.length; i++) {
+    if (line[i] === '"') { inQ = !inQ; }
+    else if (line[i] === ',' && !inQ) { result.push(cur); cur = ''; }
+    else { cur += line[i]; }
   }
+  result.push(cur);
+  return result;
+}
 
-  function finishWizard() {
+function selectMode(m) {
+  mode = m;
+  document.getElementById('opt-free').classList.toggle('sel', m === 'free');
+  document.getElementById('opt-guided').classList.toggle('sel', m === 'guided');
+  document.getElementById('free-input').classList.toggle('show', m === 'free');
+  const btn = document.getElementById('btn-main');
+  if (m === 'guided') { btn.disabled = false; btn.textContent = 'התחל.י בשאלות ←'; }
+  else { btn.textContent = 'חפש.י'; checkFreeBtn(); }
+}
+
+function checkFreeBtn() {
+  if (mode !== 'free') return;
+  document.getElementById('btn-main').disabled = document.querySelector('#free-input textarea').value.trim().length < 3;
+}
+
+function handleMain() {
+  if (mode === 'guided') { ans = {}; cur = 0; showView('view-wizard'); renderStep(); }
+  else {
+    const text = document.querySelector('#free-input textarea').value;
     showView('view-results');
-    setTimeout(() => renderResults(getTopMatches(ans)), 300);
+    searchWithAI(text);
+  }
+}
+
+function showView(id) {
+  ['view-home','view-wizard','view-results','view-filters'].forEach(v => {
+    document.getElementById(v).style.display = v === id ? 'block' : 'none';
+  });
+  if (id === 'view-results') {
+    document.getElementById('results-body').innerHTML = '<div class="loading"><span class="spinner"></span>מחפש.ת את המקום המושלם...</div>';
+  }
+  if (id === 'view-home') {
+    mode = null; ans = {}; cur = 0;
+    document.getElementById('opt-free').classList.remove('sel');
+    document.getElementById('opt-guided').classList.remove('sel');
+    document.getElementById('free-input').classList.remove('show');
+    const btn = document.getElementById('btn-main');
+    btn.disabled = true; btn.textContent = 'חפש.י';
+  }
+}
+
+async function searchWithAI(userQuery) {
+  if (!restaurants.length) { renderResults([]); return; }
+
+  const list = restaurants.map((r, i) =>
+    `${i+1}. שם: ${r.name} | עיר: ${r.location_city} | שכונה: ${r.location_neighborhood} | סגנון: ${r.style} | מחיר: ${r.price_range} | אווירה: ${r.vibe} | מתאים ל: ${r.occasion} | דיאטה: ${r.diet} | כשר: ${r.kosher} | זמן: ${r.time_of_day} | ימים: ${r.day} | קבוצה: ${r.group_size}`
+  ).join('\n');
+
+  const prompt = `אתה מנוע המלצות מסעדות חכם. קיבלת בקשה בעברית ורשימת מסעדות.
+
+בקשת המשתמש: "${userQuery}"
+
+רשימת המסעדות:
+${list}
+
+בחר את 3 המסעדות המתאימות ביותר לבקשה. התחשב בכל הפרטים שהמשתמש ציין — מיקום, אווירה, תקציב, הזדמנות, דיאטה וכו'.
+אם הרשימה קטנה, החזר את כל המסעדות הקיימות לפי סדר התאמה.
+
+ענה אך ורק במספרים מופרדים בפסיקים, לדוגמה: 2,1,3
+ללא טקסט נוסף.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 20,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    const text = data.content[0].text.trim();
+    const indices = text.split(',').map(n => parseInt(n.trim()) - 1).filter(n => !isNaN(n) && n >= 0 && n < restaurants.length);
+    const matches = indices.map(i => restaurants[i]).filter(Boolean);
+    renderResults(matches.length ? matches : restaurants.slice(0, 3));
+  } catch(e) {
+    console.error('AI search failed, falling back to simple match', e);
+    renderResults(restaurants.slice(0, 3));
+  }
+}
+
+function searchWithFilters() {
+  showView('view-results');
+  const city = document.getElementById('f-city').value;
+  const price = document.getElementById('f-price').value;
+  const vibe = document.getElementById('f-vibe').value;
+  const diet = document.getElementById('f-diet').value;
+  const query = [city, price, vibe, diet].filter(Boolean).join(', ');
+  searchWithAI(query || 'המלצה כללית');
+}
+
+function renderResults(matches) {
+  if (!matches || !matches.length) {
+    document.getElementById('results-body').innerHTML = '<div class="no-results"><strong>לא מצאנו תוצאות</strong>נסה.י לחפש שוב עם פרטים שונים</div>';
+    return;
+  }
+  const card = (r, isMain) => {
+    const link = r.website ? `<a href="${r.website}" target="_blank" class="${isMain ? 'result-link' : 'alt-link'}">${isMain ? 'לאתר המסעדה ↗' : 'לאתר ↗'}</a>` : '';
+    if (isMain) return `<div class="result-main"><span class="result-badge">ההמלצה שלנו</span><div class="result-name">${r.name}</div><div class="result-desc">${r.my_tip || ''}</div>${link}</div>`;
+    return `<div class="alt-card"><div class="alt-name">${r.name}</div><div class="alt-desc">${r.my_tip || ''}</div>${link}</div>`;
+  };
+  let html = `<div style="font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:1.2rem">נמצאו ${Math.min(matches.length,3)} המלצות בשבילך.ך</div>`;
+  html += card(matches[0], true);
+  if (matches.length > 1) {
+    html += '<div class="alts">';
+    matches.slice(1, 3).forEach(r => html += card(r, false));
+    html += '</div>';
+  }
+  document.getElementById('results-body').innerHTML = html;
+}
+
+const steps = [
+  { id:'location', label:'שאלה 1 מתוך 11', q:'איפה את.ה מחפש.ת?', hint:'אזור, עיר, או שכונה בתל אביב', placeholder:'למשל: פלורנטין, תל אביב, הגליל התחתון...', chips:['תל אביב','פלורנטין','נווה צדק','יפו','הצפון הישן','ירושלים','חיפה','הגליל','הנגב'], optional:false },
+  { id:'time_of_day', label:'שאלה 2 מתוך 11', q:'מתי ביום?', hint:'', placeholder:'למשל: ערב מאוחר אחרי 22:00...', chips:['בוקר / בראנץ\'','צהריים','ערב','לייט נייט / מאנץ\''], optional:false },
+  { id:'occasion', label:'שאלה 3 מתוך 11', q:'מה האירוע?', hint:'', placeholder:'למשל: יומולדת 30 של אחי...', chips:['ארוחה רגילה','יומולדת','דייט','ארוחת עסקים','חגיגה משפחתית','ארוחה שקטה לבד'], optional:false },
+  { id:'group', label:'שאלה 4 מתוך 11', q:'עם מי את.ה?', hint:'', placeholder:'למשל: 8 אנשים כולל 2 ילדים...', chips:['לבד','עם בת/ן זוג','2–3 חברים','4–6 אנשים','6+ משפחה'], optional:false },
+  { id:'style_yes', label:'שאלה 5 מתוך 11', q:'סגנון מועדף?', hint:'אפשר לבחור כמה', placeholder:'למשל: ים תיכוני, יפני...', chips:['ים תיכוני','יפני','איטלקי','ישראלי מודרני','מקסיקני','בשרייה','פיצה','מזרח תיכוני','אסייתי'], optional:true, multi:true },
+  { id:'style_no', label:'שאלה 6 מתוך 11', q:'סגנון להימנע ממנו?', hint:'אופציונלי', placeholder:'למשל: לא בשר, לא יפני...', chips:['בשר','דגים','מטוגן','חריף','אסייתי'], optional:true, multi:true },
+  { id:'price', label:'שאלה 7 מתוך 11', q:'מה התקציב לאדם?', hint:'', placeholder:'', chips:['כמה שיותר זול','עד 50 ₪','50–100 ₪','100–200 ₪','יקר אבל לא מוגזם','אין הגבלה'], optional:false },
+  { id:'kosher', label:'שאלה 8 מתוך 11', q:'חשוב שיהיה כשר?', hint:'', placeholder:'', chips:['כן, חייב כשר','עדיף כשר','לא משנה'], optional:false },
+  { id:'diet', label:'שאלה 9 מתוך 11', q:'יש צמחונים / טבעונים בקבוצה?', hint:'', placeholder:'', chips:['לא','יש צמחונים — צריך אופציות','יש טבעונים — חייב מספיק אפשרויות','הכל צמחוני / טבעוני'], optional:false },
+  { id:'vibe', label:'שאלה 10 מתוך 11', q:'איזו אווירה?', hint:'אפשר לבחור כמה', placeholder:'למשל: שקט ורגוע, רוצה מוזיקה...', chips:['אינטימי ושקט','קליל וכיפי','מכובד ורשמי','רועש וחי','בחוץ / פטיו','בר-אוכל'], optional:false, multi:true },
+  { id:'day', label:'שאלה 11 מתוך 11', q:'באיזה יום?', hint:'', placeholder:'', chips:['אמצע שבוע','שישי','שבת','לא משנה'], optional:false }
+];
+
+function renderStep() {
+  const s = steps[cur];
+  const pct = Math.round(((cur + 1) / steps.length) * 100);
+  document.getElementById('progress').style.width = pct + '%';
+
+  let d = `<div class="step-label">${s.label}</div>`;
+  d += `<div class="step-q">${s.q}</div>`;
+  if (s.hint) d += `<div class="step-hint">${s.hint}</div>`;
+
+  const fval = ans[s.id + '_free'] || '';
+  d += `<div class="step-free"><textarea class="inp" rows="2" placeholder="${s.placeholder || 'הקלד.י כאן בחופשיות...'}" onchange="ans['${s.id}_free']=this.value;updateNextBtn()">${fval}</textarea></div>`;
+
+  if (s.chips && s.chips.length) {
+    d += '<div class="chips">';
+    s.chips.forEach((o, idx) => {
+      const isMulti = s.multi || false;
+      const isSel = ans[s.id] && (isMulti ? ans[s.id].includes(o) : ans[s.id] === o);
+      d += `<div class="chip${isSel ? ' sel' : ''}" data-step="${cur}" data-idx="${idx}" data-val="${o.replace(/"/g,'&quot;')}" data-multi="${isMulti}" onclick="chipClick(this)">${o}</div>`;
+    });
+    d += '</div>';
   }
 
-  function recheck() {
-    const s = steps[cur];
-    const hasFree = (ans[s.id + '_free'] || '').trim() !== '';
-    const hasChip = ans[s.id] && (Array.isArray(ans[s.id]) ? ans[s.id].length > 0 : ans[s.id] !== '');
-    const ok = s.optional || (hasChip || hasFree);
-    const btn = document.getElementById('btn-next');
-    if (btn) btn.disabled = !ok;
-  }
+  const isLast = cur === steps.length - 1;
+  const ok = isAnswered(s);
+  d += '<div class="btn-row">';
+  if (cur > 0) d += '<button class="btn-back" onclick="goBack()">← חזרה</button>';
+  else d += '<div></div>';
+  d += `<button class="btn-next" id="btn-next" onclick="${isLast ? 'finishWizard()' : 'goNext()'}" ${ok ? '' : 'disabled'}>${isLast ? 'מצא.י לי! ✓' : 'המשך →'}</button>`;
+  d += '</div>';
+  if (!s.optional && !ok) d += '<button class="skip-btn" onclick="skipStep()">דלג.י על שאלה זו</button>';
 
-  function tc(el, id, val, multi) {
-    if (multi) {
-      if (!ans[id]) ans[id] = [];
-      const i = ans[id].indexOf(val);
-      if (i > -1) { ans[id].splice(i, 1); el.classList.remove('sel'); }
-      else { ans[id].push(val); el.classList.add('sel'); }
-    } else {
-      ans[id] = val;
-      document.querySelectorAll('#cw .chip').forEach(c => c.classList.remove('sel'));
-      el.classList.add('sel');
+  document.getElementById('wizard-body').innerHTML = d;
+}
+
+function chipClick(el) {
+  const stepIdx = parseInt(el.dataset.step);
+  const val = el.dataset.val;
+  const isMulti = el.dataset.multi === 'true';
+  const s = steps[stepIdx];
+
+  if (isMulti) {
+    if (!ans[s.id]) ans[s.id] = [];
+    const i = ans[s.id].indexOf(val);
+    if (i > -1) { ans[s.id].splice(i, 1); el.classList.remove('sel'); }
+    else { ans[s.id].push(val); el.classList.add('sel'); }
+  } else {
+    ans[s.id] = val;
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('sel'));
+    el.classList.add('sel');
+  }
+  updateNextBtn();
+}
+
+function isAnswered(s) {
+  const hasChip = ans[s.id] && (Array.isArray(ans[s.id]) ? ans[s.id].length > 0 : ans[s.id] !== '');
+  const hasFree = (ans[s.id + '_free'] || '').trim() !== '';
+  return s.optional || hasChip || hasFree;
+}
+
+function updateNextBtn() {
+  const btn = document.getElementById('btn-next');
+  if (btn) btn.disabled = !isAnswered(steps[cur]);
+}
+
+function goNext() { if (cur < steps.length - 1) { cur++; renderStep(); } }
+function goBack() { if (cur > 0) { cur--; renderStep(); } }
+function skipStep() { ans[steps[cur].id] = ''; ans[steps[cur].id + '_free'] = ''; goNext(); }
+
+async function finishWizard() {
+  showView('view-results');
+  const parts = [];
+  steps.forEach(s => {
+    const chip = ans[s.id];
+    const free = ans[s.id + '_free'];
+    if (chip && (Array.isArray(chip) ? chip.length > 0 : chip)) {
+      parts.push(`${s.q} ${Array.isArray(chip) ? chip.join(', ') : chip}`);
     }
-    recheck();
-  }
+    if (free && free.trim()) parts.push(free.trim());
+  });
+  await searchWithAI(parts.join(' | '));
+}
 
-  function ns() { if (cur < steps.length - 1) { cur++; renderStep(); } }
-  function gb() { if (cur > 0) { cur--; renderStep(); } }
-  function skip() { ans[steps[cur].id] = ''; ans[steps[cur].id + '_free'] = ''; ns(); }
-
-  loadRestaurants();
+loadRestaurants();
 </script>
 </body>
 </html>
