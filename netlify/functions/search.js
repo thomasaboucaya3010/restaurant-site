@@ -34,155 +34,99 @@ exports.handler = async function(event) {
   }
 
   try {
-    const {
-      query,
-      restaurants,
-      offset = 0,
-      count = 3,
-      filters = {}
-    } = JSON.parse(event.body);
+    const { query, restaurants, offset = 0, count = 3, filters = {} } = JSON.parse(event.body);
+    const { city, neighborhood, locationFlexibility = 'city', day, meal, groupSize, dietary, priceMax } = filters;
 
-    const {
-      city,
-      neighborhood,
-      locationFlexibility = 'city', // 'exact', 'adjacent', 'city'
-      day,
-      meal,
-      groupSize,
-      dietary,
-      priceMax,
-    } = filters;
-
-    // Step 1: Filter only active restaurants
+    // Step 1: Active only
     let pool = restaurants.filter(r => {
-      const active = (r['Active (Yes/No)'] || r['active'] || '').trim();
+      const active = (r['Active (Yes/No)'] || '').trim();
       return active === 'כן' || active === 'yes' || active === 'Yes';
     });
 
-    // Step 2: ELIMINATION filters
-
-    // City - hard filter
+    // Step 2: ELIMINATION
     if (city) {
-      const cityFiltered = pool.filter(r => {
+      const cf = pool.filter(r => {
         const rc = (r['City'] || '').trim();
         return rc.includes(city) || city.includes(rc);
       });
-      if (cityFiltered.length >= 2) pool = cityFiltered;
+      if (cf.length >= 2) pool = cf;
     }
 
-    // Day - hard filter
     if (day && day !== 'לא משנה') {
-      const dayMap = {
-        'שישי': 'שישי', 'שבת': 'שבת',
-        'אמצע שבוע': ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'א', 'ב', 'ג', 'ד', 'ה', 'א–ה']
-      };
-      const dayFiltered = pool.filter(r => {
-        const openDays = (r['Open days'] || '').trim();
-        if (!openDays) return true;
-        if (openDays.includes('א–ש') || openDays.includes('כל השבוע')) return true;
-        if (day === 'שישי') return openDays.includes('שישי') || openDays.includes('ו') || openDays.includes('א–ו') || openDays.includes('א–ש');
-        if (day === 'שבת') return openDays.includes('שבת') || openDays.includes('ש') || openDays.includes('א–ש');
-        if (day === 'אמצע שבוע') return openDays.includes('א') || openDays.includes('ה') || openDays.includes('א–ה') || openDays.includes('א–ש');
+      const df = pool.filter(r => {
+        const od = (r['Open days'] || '').trim();
+        if (!od) return true;
+        if (od.includes('א–ש') || od.includes('כל השבוע')) return true;
+        if (day === 'שישי') return od.includes('שישי') || od.includes('ו') || od.includes('א–ו') || od.includes('א–ש');
+        if (day === 'שבת') return od.includes('שבת') || od.includes('ש') || od.includes('א–ש');
+        if (day === 'אמצע שבוע') return od.includes('א') || od.includes('ה') || od.includes('א–ה') || od.includes('א–ש');
         return true;
       });
-      if (dayFiltered.length >= 2) pool = dayFiltered;
+      if (df.length >= 2) pool = df;
     }
 
-    // Meal time - hard filter
     if (meal) {
       const mealKey = MEAL_MAP[meal] || meal;
-      const mealFiltered = pool.filter(r => {
+      const mf = pool.filter(r => {
         const meals = (r['Meals served'] || '').trim();
         if (!meals) return true;
         return meals.includes(mealKey) || meals.includes(meal);
       });
-      if (mealFiltered.length >= 2) pool = mealFiltered;
+      if (mf.length >= 2) pool = mf;
     }
 
-    // Dietary - hard filter
     if (dietary && dietary !== 'אין') {
-      const dietFiltered = pool.filter(r => {
-        const diet = (r['Dietary'] || '').trim();
-        if (!diet) return false;
-        return diet.includes(dietary);
-      });
-      if (dietFiltered.length >= 1) pool = dietFiltered;
+      const dietF = pool.filter(r => (r['Dietary'] || '').includes(dietary));
+      if (dietF.length >= 1) pool = dietF;
     }
 
-    // Group size - hard filter for large groups
     if (groupSize && parseInt(groupSize) >= 7) {
-      const groupFiltered = pool.filter(r => {
-        const gs = (r['Group size'] || '').trim();
-        return gs.includes('קבוצה גדולה') || gs.includes('גדול');
-      });
-      if (groupFiltered.length >= 2) pool = groupFiltered;
+      const gf = pool.filter(r => (r['Group size'] || '').includes('קבוצה גדולה'));
+      if (gf.length >= 2) pool = gf;
     }
 
-    // Step 3: SCORE remaining restaurants
+    // Step 3: SCORE
     const scored = pool.map(r => {
       let score = 0;
-      const reasons = [];
-
-      // Rating score (weight x3) - most important
-      const rating = parseFloat(r['My rating (1-5)'] || r['my rating'] || 0);
+      const rating = parseFloat(r['My rating (1-5)'] || 0);
       score += rating * 3;
 
-      // Neighborhood scoring with flexibility
       if (neighborhood) {
-        const rNeighborhood = (r['Neighborhood'] || '').trim();
-        const normalizedN = neighborhood.replace('(כללי)', '').trim();
-
-        if (rNeighborhood.includes(normalizedN) || normalizedN.includes(rNeighborhood)) {
+        const rN = (r['Neighborhood'] || '').trim();
+        const normN = neighborhood.replace('(כללי)', '').trim();
+        if (rN.includes(normN) || normN.includes(rN)) {
           score += 3;
-          reasons.push('שכונה מדויקת');
         } else if (locationFlexibility === 'adjacent' || locationFlexibility === 'city') {
-          const adjacentList = ADJACENT[normalizedN] || [];
-          const isAdjacent = adjacentList.some(adj =>
-            rNeighborhood.includes(adj) || adj.includes(rNeighborhood)
-          );
-          if (isAdjacent) {
-            score += locationFlexibility === 'adjacent' ? 2 : 1;
-            reasons.push('שכונה סמוכה');
-          }
+          const adj = ADJACENT[normN] || [];
+          const isAdj = adj.some(a => rN.includes(a) || a.includes(rN));
+          if (isAdj) score += locationFlexibility === 'adjacent' ? 2 : 1;
         }
       }
 
-      // Best for match (weight x3)
       const bestFor = (r['Best for'] || '').trim();
-      const queryLower = query.toLowerCase();
-      if (bestFor && queryLower) {
-        const bestForTerms = bestFor.split(',').map(t => t.trim());
-        bestForTerms.forEach(term => {
-          if (query.includes(term) || term.split(' ').some(w => query.includes(w))) {
-            score += 3;
-            reasons.push(`מתאים ל: ${term}`);
-          }
+      if (bestFor) {
+        bestFor.split(',').forEach(term => {
+          const t = term.trim();
+          if (query.includes(t) || t.split(' ').some(w => query.includes(w))) score += 3;
         });
       }
 
-      // Occasion match (weight x2)
       const occasion = (r['Occasion'] || '').trim();
-      if (occasion && query) {
-        const occasionTerms = occasion.split(',').map(t => t.trim());
-        occasionTerms.forEach(term => {
-          if (query.includes(term) || term.split(' ').some(w => w.length > 2 && query.includes(w))) {
-            score += 2;
-          }
+      if (occasion) {
+        occasion.split(',').forEach(term => {
+          const t = term.trim();
+          if (query.includes(t) || t.split(' ').some(w => w.length > 2 && query.includes(w))) score += 2;
         });
       }
 
-      // Vibe match (weight x2)
       const vibe = (r['Vibe'] || '').trim();
-      if (vibe && query) {
-        const vibeTerms = vibe.split(',').map(t => t.trim());
-        vibeTerms.forEach(term => {
-          if (query.includes(term) || term.split(' ').some(w => w.length > 2 && query.includes(w))) {
-            score += 2;
-          }
+      if (vibe) {
+        vibe.split(',').forEach(term => {
+          const t = term.trim();
+          if (query.includes(t) || t.split(' ').some(w => w.length > 2 && query.includes(w))) score += 2;
         });
       }
 
-      // Price range match (weight x1)
       if (priceMax) {
         const rPrice = PRICE_MAP[(r['Price range'] || '').trim()] || 3;
         const maxPrice = PRICE_MAP[priceMax] || 5;
@@ -190,13 +134,10 @@ exports.handler = async function(event) {
         else score -= 2;
       }
 
-      return { restaurant: r, score, reasons };
+      return { restaurant: r, score };
     });
 
-    // Sort by score descending
     scored.sort((a, b) => b.score - a.score);
-
-    // Take top 15 for Claude to reason about
     const topCandidates = scored.slice(0, 15);
 
     if (topCandidates.length === 0) {
@@ -207,24 +148,19 @@ exports.handler = async function(event) {
       };
     }
 
-    // Step 4: Send to Claude with curator prompt
+    // Step 4: Claude picks best 3 indices (no generated text)
     const restaurantList = topCandidates.map((item, i) => {
       const r = item.restaurant;
-      return `${i + 1}. ${r['Name']} | עיר: ${r['City']} | שכונה: ${r['Neighborhood']} | סוג: ${r['Type']} | מטבח: ${r['Cuisine']} | מחיר: ${r['Price range']} | דירוג: ${r['My rating (1-5)']} | הכי טוב ל: ${r['Best for']} | אירוע: ${r['Occasion']} | גודל קבוצה: ${r['Group size']} | אווירה: ${r['Vibe']} | רמת רעש: ${r['Noise level']} | תזונה: ${r['Dietary']} | ימים: ${r['Open days']} | ארוחות: ${r['Meals served']} | הערה אישית: ${r['Personal note']}`;
+      return `${i + 1}. ${r['Name']} | עיר: ${r['City']} | שכונה: ${r['Neighborhood']} | סוג: ${r['Type']} | מטבח: ${r['Cuisine']} | מחיר: ${r['Price range']} | דירוג: ${r['My rating (1-5)']} | הכי טוב ל: ${r['Best for']} | אירוע: ${r['Occasion']} | גודל קבוצה: ${r['Group size']} | אווירה: ${r['Vibe']} | תזונה: ${r['Dietary']} | ימים: ${r['Open days']} | ארוחות: ${r['Meals served']}`;
     }).join('\n');
 
-    const systemPrompt = `You are a restaurant recommendation assistant for a curated list of restaurants, bars, and cafes. You will be given a structured database of venues, each with attributes including type, cuisine, neighborhood, price range, noise level, group size, occasions, vibe, special features, dietary options, meals served, and personal notes written by the curator. When a user asks for a recommendation — either in free text or through guided answers — your job is to first filter out any venues that clearly don't match the hard requirements (wrong city, wrong group size, doesn't serve the right meal, missing a must-have feature), and then rank the remaining matches by: (1) how well the venue fits the specific occasion and vibe requested, and (2) the curator's personal rating. When presenting results, always show exactly 3 recommendations, varied in style or price where possible. For each one, lead with the name and one sentence in the curator's voice explaining why it fits — drawing from the personal notes and "best for" fields. If a hard requirement cannot be met by any venue (e.g. no kosher options in that city), say so clearly and suggest the closest alternative. Respond ONLY with JSON in this exact format, no other text: [{"index": 1, "reason": "one sentence in curator voice"}, {"index": 2, "reason": "..."}, {"index": 3, "reason": "..."}]`;
+    const systemPrompt = `You are a restaurant recommendation assistant for a curated list of restaurants, bars, and cafes. You will be given a structured database of venues and a user request. Your job is to pick the 3 best matches. Filter out venues that clearly don't match hard requirements (wrong city, wrong group size, doesn't serve the right meal, missing dietary needs). Then rank by how well the venue fits the occasion, vibe, and the curator's personal rating. Return ONLY a JSON array of 3 indices (1-based), varied in style or price where possible. Format: [1, 3, 7] — nothing else.`;
 
-    const userMessage = `בקשת המשתמש: "${query}"
-
-רשימת המסעדות המסוננות (ממוינות לפי רלוונטיות):
-${restaurantList}
-
-בחר 3 המסעדות המתאימות ביותר. החזר JSON בלבד.`;
+    const userMessage = `בקשת המשתמש: "${query}"\n\nמסעדות:\n${restaurantList}\n\nהחזר JSON בלבד: מערך של 3 מספרים.`;
 
     const requestBody = JSON.stringify({
       model: 'claude-haiku-4-5-20251001',
-      max_tokens: 500,
+      max_tokens: 50,
       system: systemPrompt,
       messages: [{ role: 'user', content: userMessage }]
     });
@@ -251,53 +187,32 @@ ${restaurantList}
     });
 
     const apiData = JSON.parse(responseText);
+    let rawText = (apiData.content[0].text || '').trim().replace(/```json\n?/g,'').replace(/```\n?/g,'').trim();
 
-    if (!apiData.content || !apiData.content[0]) {
-      throw new Error('Invalid API response: ' + responseText);
-    }
-
-    let rawText = apiData.content[0].text.trim();
-    // Strip markdown code fences if present
-    rawText = rawText.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
-
-    let picks = [];
+    let indices = [];
     try {
-      picks = JSON.parse(rawText);
+      indices = JSON.parse(rawText);
     } catch(e) {
-      // fallback: return top 3 scored
-      picks = topCandidates.slice(0, 3).map((item, i) => ({
-        index: i + 1,
-        reason: item.restaurant['Personal note'] || 'המלצה של האוצר'
-      }));
+      indices = topCandidates.slice(0, 3).map((_, i) => i + 1);
     }
 
-    const results = picks.slice(offset, offset + count).map(pick => {
-      const item = topCandidates[pick.index - 1];
+    const allResults = indices.map(idx => {
+      const item = topCandidates[idx - 1];
       if (!item) return null;
-      return {
-        restaurant: item.restaurant,
-        reason: pick.reason,
-        score: item.score
-      };
+      return { restaurant: item.restaurant, score: item.score };
     }).filter(Boolean);
 
-    const hasMore = picks.length > offset + count;
+    const results = allResults.slice(offset, offset + count);
+    const hasMore = allResults.length > offset + count;
 
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        results,
-        hasMore,
-        totalFound: topCandidates.length
-      })
+      body: JSON.stringify({ results, hasMore, totalFound: allResults.length })
     };
 
   } catch(e) {
     console.error('Function error:', e.message, e.stack);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: e.message })
-    };
+    return { statusCode: 500, body: JSON.stringify({ error: e.message }) };
   }
 };

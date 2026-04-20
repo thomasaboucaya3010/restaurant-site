@@ -68,27 +68,31 @@
     .refinement-q { font-size: 0.9rem; font-weight: 700; color: var(--ink); margin-bottom: 0.6rem; }
     .results-wrap { max-width: 580px; margin: 2rem auto 3rem; padding: 0 2rem; }
     .back-link { font-size: 0.82rem; font-weight: 500; color: var(--burnt); background: none; border: none; cursor: pointer; font-family: 'Heebo', sans-serif; margin-bottom: 1.2rem; display: block; text-align: right; }
-    .result-card { background: var(--white); border-radius: 16px; border: 1px solid var(--border); padding: 1.4rem; margin-bottom: 1rem; }
-    .result-name { font-size: 1.2rem; font-weight: 900; color: var(--ink); letter-spacing: -0.5px; margin-bottom: 0.3rem; }
-    .result-type { font-size: 0.78rem; font-weight: 500; color: var(--ink3); margin-bottom: 0.6rem; }
-    .result-desc { font-size: 0.9rem; font-weight: 300; color: var(--ink2); line-height: 1.6; margin-bottom: 0.8rem; font-style: italic; }
-    .result-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 0.9rem; }
-    .tag { font-size: 0.75rem; font-weight: 500; color: var(--ink3); background: var(--cream); border: 1px solid var(--border); border-radius: 20px; padding: 3px 10px; }
-    .result-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .result-link { display: inline-flex; align-items: center; gap: 5px; font-size: 0.82rem; font-weight: 700; color: var(--burnt); text-decoration: none; border: 1.5px solid var(--burnt); border-radius: 8px; padding: 5px 12px; transition: all 0.15s; }
+
+    /* Result card */
+    .result-card { background: var(--white); border-radius: 16px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 1rem; }
+    .result-body { padding: 1.4rem; }
+    .result-name { font-size: 1.25rem; font-weight: 900; color: var(--ink); letter-spacing: -0.5px; margin-bottom: 0.2rem; }
+    .result-meta { font-size: 0.78rem; color: var(--ink3); font-weight: 400; margin-bottom: 0.7rem; }
+    .result-tagline { font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 0.5rem; }
+    .result-note { font-size: 0.88rem; font-weight: 300; color: var(--ink2); line-height: 1.6; margin-bottom: 1rem; }
+    .result-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 1rem; }
+    .result-link { display: inline-flex; align-items: center; gap: 4px; font-size: 0.82rem; font-weight: 700; color: var(--burnt); text-decoration: none; border: 1.5px solid var(--burnt); border-radius: 8px; padding: 5px 12px; transition: all 0.15s; }
     .result-link:hover { background: var(--burnt); color: white; }
-    .maps-link { display: inline-flex; align-items: center; gap: 5px; font-size: 0.82rem; font-weight: 700; color: var(--olive); text-decoration: none; border: 1.5px solid var(--olive); border-radius: 8px; padding: 5px 12px; transition: all 0.15s; }
+    .maps-link { display: inline-flex; align-items: center; gap: 4px; font-size: 0.82rem; font-weight: 700; color: var(--olive); text-decoration: none; border: 1.5px solid var(--olive); border-radius: 8px; padding: 5px 12px; transition: all 0.15s; }
     .maps-link:hover { background: var(--olive); color: white; }
     .why-btn { font-size: 0.78rem; font-weight: 500; color: var(--ink3); background: none; border: 1px solid var(--border); border-radius: 8px; padding: 5px 10px; cursor: pointer; font-family: 'Heebo', sans-serif; transition: all 0.15s; display: none; }
     .why-btn.show { display: inline-flex; }
     .why-btn:hover { border-color: var(--olive); color: var(--olive); }
-    .debug-panel { background: #f0f4e8; border: 1px solid rgba(59,74,45,0.2); border-radius: 10px; padding: 1rem; margin-top: 0.8rem; display: none; }
+    .result-photo { width: 100%; max-height: 220px; object-fit: cover; display: block; border-top: 1px solid var(--border); }
+    .debug-panel { background: #f0f4e8; border-top: 1px solid rgba(59,74,45,0.15); padding: 1rem 1.4rem; display: none; }
     .debug-panel.show { display: block; }
     .debug-title { font-size: 0.75rem; font-weight: 700; color: var(--olive); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
     .debug-fields { font-size: 0.78rem; color: var(--ink3); line-height: 1.9; }
     .debug-fields span { color: var(--ink2); font-weight: 500; }
     .edit-link { display: inline-flex; align-items: center; gap: 4px; font-size: 0.78rem; font-weight: 700; color: var(--olive); text-decoration: none; border: 1px solid var(--olive); border-radius: 6px; padding: 4px 10px; margin-top: 0.6rem; transition: all 0.15s; }
     .edit-link:hover { background: var(--olive); color: white; }
+
     .show-more-btn { width: 100%; padding: 12px; border-radius: 12px; border: 1.5px solid var(--border); background: transparent; font-family: 'Heebo', sans-serif; font-size: 0.9rem; font-weight: 500; color: var(--ink2); cursor: pointer; transition: all 0.15s; margin-top: 0.5rem; display: none; }
     .show-more-btn.show { display: block; }
     .show-more-btn:hover { border-color: var(--olive); color: var(--olive); }
@@ -213,7 +217,6 @@ async function loadRestaurants() {
     const res = await fetch(SHEET_URL);
     const text = await res.text();
     const lines = text.trim().split('\n');
-    // Skip row 0 (Hebrew headers), use row 1 (English headers)
     const headers = lines[1].split(',').map(h => h.replace(/"/g,'').trim());
     restaurants = lines.slice(2).filter(l => l.trim()).map((line, rowIdx) => {
       const vals = parseCSV(line);
@@ -266,6 +269,7 @@ function handleMain() {
   if (mode === 'guided') { ans = {}; filters = {}; cur = 0; inStage2 = false; showView('view-wizard'); renderStep(); }
   else {
     currentQuery = document.querySelector('#free-input textarea').value;
+    filters = {};
     currentOffset = 0; renderedCards = [];
     showView('view-results'); doSearch();
   }
@@ -337,27 +341,30 @@ function renderResults(results, hasMore, totalFound, isFirstPage = true) {
       document.getElementById('results-body').innerHTML = '<div class="no-results"><strong>לא מצאנו תוצאות</strong>נסה.י לחפש שוב עם פרטים שונים</div>';
       return;
     }
-    document.getElementById('results-body').innerHTML = `<div class="results-header"><div class="results-title">המלצות בשבילך</div><div class="results-count">${totalFound} מסעדות בסינון</div></div>`;
+    document.getElementById('results-body').innerHTML = `<div class="results-header"><div class="results-title">המלצות בשבילך</div><div class="results-count">${totalFound} מסעדות עברו סינון</div></div>`;
   }
 
   const startIdx = renderedCards.length;
   results.forEach((item, i) => {
     const idx = startIdx + i;
     const r = item.restaurant;
-    const reason = item.reason || '';
     renderedCards.push(r);
 
     const websiteUrl = r['Website/Instagram'] || '';
     const mapsUrl = r['Google Maps'] || '';
-    const websiteLink = websiteUrl ? `<a href="${websiteUrl.startsWith('http') ? websiteUrl : 'https://' + websiteUrl}" target="_blank" class="result-link">אתר ↗</a>` : '';
-    const mapsLink = mapsUrl ? `<a href="${mapsUrl}" target="_blank" class="maps-link">מפה 📍</a>` : '';
+    const photoUrl = r['photo'] || '';
+    const tagline = r['tagline'] || '';
+    const personalNote = r['Personal note'] || '';
 
-    const tags = [
-      r['Neighborhood'] && `📍 ${r['Neighborhood']}`,
-      r['Price range'] && `${r['Price range']}`,
-      r['Noise level'] && `${r['Noise level']}`,
-      r['Vibe'] && r['Vibe'].split(',')[0].trim()
-    ].filter(Boolean);
+    const websiteLink = websiteUrl
+      ? `<a href="${websiteUrl.startsWith('http') ? websiteUrl : 'https://' + websiteUrl}" target="_blank" class="result-link">אתר ↗</a>`
+      : '';
+    const mapsLink = mapsUrl
+      ? `<a href="${mapsUrl}" target="_blank" class="maps-link">מפה 📍</a>`
+      : '';
+    const photoEl = photoUrl
+      ? `<img src="${photoUrl}" alt="${r['Name']}" class="result-photo" onerror="this.style.display='none'">`
+      : '';
 
     const debugFields = `
       <div class="debug-fields">
@@ -365,22 +372,24 @@ function renderResults(results, hasMore, totalFound, isFirstPage = true) {
         מטבח: <span>${r['Cuisine']||'—'}</span> | מחיר: <span>${r['Price range']||'—'}</span> | דירוג: <span>${r['My rating (1-5)']||'—'}</span><br>
         אווירה: <span>${r['Vibe']||'—'}</span> | רעש: <span>${r['Noise level']||'—'}</span> | תזונה: <span>${r['Dietary']||'—'}</span><br>
         ימים: <span>${r['Open days']||'—'}</span> | ארוחות: <span>${r['Meals served']||'—'}</span><br>
-        הכי טוב ל: <span>${r['Best for']||'—'}</span><br>
-        הערה: <span>${r['Personal note']||'—'}</span>
+        הכי טוב ל: <span>${r['Best for']||'—'}</span>
       </div>
       <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTKvxSYmsFCDHcDtIl2DWhISC_IdOGwmPDcML1XzJhxjLT5V5yjl5PnGfq8p3wdxMSULOX5BPSa05Fk/pub" target="_blank" class="edit-link">✏ פתח גיליון</a>`;
 
     const card = document.createElement('div');
     card.className = 'result-card';
     card.innerHTML = `
-      <div class="result-name">${r['Name']}</div>
-      <div class="result-type">${r['Type']||''} ${r['Cuisine'] ? '· ' + r['Cuisine'] : ''}</div>
-      <div class="result-desc">"${reason}"</div>
-      <div class="result-tags">${tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-      <div class="result-actions">
-        ${websiteLink}${mapsLink}
-        <button class="why-btn ${isAdmin?'show':''}" onclick="toggleDebug(${idx})">פרטים ▾</button>
+      <div class="result-body">
+        <div class="result-name">${r['Name']}</div>
+        <div class="result-meta">${r['Type']||''} ${r['Neighborhood'] ? '· ' + r['Neighborhood'] : ''} ${r['Price range'] ? '· ' + r['Price range'] : ''}</div>
+        ${tagline ? `<div class="result-tagline">${tagline}</div>` : ''}
+        ${personalNote ? `<div class="result-note">${personalNote}</div>` : ''}
+        <div class="result-actions">
+          ${websiteLink}${mapsLink}
+          <button class="why-btn ${isAdmin?'show':''}" onclick="toggleDebug(${idx})">פרטים ▾</button>
+        </div>
       </div>
+      ${photoEl}
       <div class="debug-panel" id="debug-${idx}">
         <div class="debug-title">פרטי המסעדה</div>
         ${debugFields}
@@ -391,14 +400,13 @@ function renderResults(results, hasMore, totalFound, isFirstPage = true) {
   document.getElementById('show-more-btn').classList.toggle('show', hasMore);
 }
 
-// WIZARD
 const stage1 = [
   { id:'location', stage:'שלב 1 — שאלות עיקריות', label:'שאלה 1 מתוך 6', q:'איפה את.ה מחפש.ת?', hint:'עיר, שכונה, או אזור', placeholder:'למשל: פלורנטין, תל אביב...', chips:['תל אביב','פלורנטין','נווה צדק','יפו','כרם התימנים','הצפון הישן','שוק הכרמל','נחלת בנימין'] },
-  { id:'location_flex', stage:'שלב 1 — שאלות עיקריות', label:'שאלה 2 מתוך 6', q:'כמה את.ה גמיש.ה עם המיקום?', hint:'', placeholder:'', chips:['רק שם בדיוק','שכונות סמוכות בסדר','כל העיר בסדר'], isFlexibility: true },
+  { id:'location_flex', stage:'שלב 1 — שאלות עיקריות', label:'שאלה 2 מתוך 6', q:'כמה את.ה גמיש.ה עם המיקום?', hint:'', placeholder:'', chips:['רק שם בדיוק','שכונות סמוכות בסדר','כל העיר בסדר'], isFlexibility:true },
   { id:'day', stage:'שלב 1 — שאלות עיקריות', label:'שאלה 3 מתוך 6', q:'איזה יום?', hint:'', placeholder:'', chips:['אמצע שבוע','שישי','שבת','לא משנה'] },
   { id:'meal', stage:'שלב 1 — שאלות עיקריות', label:'שאלה 4 מתוך 6', q:'מתי ביום?', hint:'', placeholder:'למשל: ארוחת בוקר מאוחרת...', chips:['בוקר / בראנץ\'','צהריים','ערב','לייט נייט'] },
-  { id:'occasion', stage:'שלב 1 — שאלות עיקריות', label:'שאלה 5 מתוך 6', q:'מה האירוע?', hint:'', placeholder:'למשל: יומולדת, דייט, יציאה עם חברים...', chips:['ארוחה רגילה','יומולדת','דייט','ארוחת עסקים','חגיגה משפחתית','יציאה עם חברים'] },
-  { id:'group', stage:'שלב 1 — שאלות עיקריות', label:'שאלה 6 מתוך 6', q:'כמה אנשים?', hint:'', placeholder:'', chips:[], isNumberInput: true }
+  { id:'occasion', stage:'שלב 1 — שאלות עיקריות', label:'שאלה 5 מתוך 6', q:'מה האירוע?', hint:'', placeholder:'למשל: יומולדת, דייט...', chips:['ארוחה רגילה','יומולדת','דייט','ארוחת עסקים','חגיגה משפחתית','יציאה עם חברים'] },
+  { id:'group', stage:'שלב 1 — שאלות עיקריות', label:'שאלה 6 מתוך 6', q:'כמה אנשים?', hint:'', placeholder:'', chips:[], isNumberInput:true }
 ];
 
 const stage2Fields = [
@@ -420,7 +428,7 @@ function renderStep() {
   if (s.hint) d += `<div class="step-hint">${s.hint}</div>`;
 
   if (s.isNumberInput) {
-    const val = ans[s.id + '_free'] || '';
+    const val = ans['group_free'] || '';
     d += `<div class="step-free"><input type="number" min="1" max="50" class="inp" placeholder="מספר אנשים..." value="${val}" oninput="ans['group_free']=this.value;updateNextBtn()"></div>`;
   } else if (!s.isFlexibility) {
     const fval = ans[s.id + '_free'] || '';
@@ -477,14 +485,11 @@ function chipClick(el) {
   const val = el.dataset.val;
   const s = stage1[stepIdx];
   ans[s.id] = val;
-
-  // Store flexibility answer in filters
   if (s.isFlexibility) {
     if (val === 'רק שם בדיוק') filters.locationFlexibility = 'exact';
     else if (val === 'שכונות סמוכות בסדר') filters.locationFlexibility = 'adjacent';
     else filters.locationFlexibility = 'city';
   }
-
   document.querySelectorAll('.chip').forEach(c => c.classList.remove('sel'));
   el.classList.add('sel');
   updateNextBtn();
@@ -529,35 +534,24 @@ function backToStage1() { inStage2 = false; cur = stage1.length - 1; renderStep(
 
 function buildQueryAndFilters() {
   const parts = [];
-
-  // Location
   const loc = ans['location'] || ans['location_free'] || '';
   if (loc) {
     parts.push(`מיקום: ${loc}`);
-    // Try to split city vs neighborhood
     const cities = ['תל אביב', 'יפו', 'ירושלים', 'חיפה'];
     const isCity = cities.some(c => loc.includes(c));
     if (isCity) filters.city = loc;
     else { filters.neighborhood = loc; filters.city = 'תל אביב'; }
   }
-
   if (ans['day']) { parts.push(`יום: ${ans['day']}`); filters.day = ans['day']; }
   const meal = ans['meal'] || ans['meal_free'] || '';
   if (meal) { parts.push(`ארוחה: ${meal}`); filters.meal = meal; }
   if (ans['occasion'] || ans['occasion_free']) parts.push(`אירוע: ${ans['occasion'] || ans['occasion_free']}`);
-
   const group = ans['group_free'] || '';
-  if (group) {
-    parts.push(`${group} אנשים`);
-    filters.groupSize = group;
-  }
-
-  // Stage 2
+  if (group) { parts.push(`${group} אנשים`); filters.groupSize = group; }
   if (ans['dietary'] && ans['dietary'] !== 'אין') { parts.push(`תזונה: ${ans['dietary']}`); filters.dietary = ans['dietary']; }
   if (ans['cuisine']) parts.push(`מטבח: ${Array.isArray(ans['cuisine']) ? ans['cuisine'].join(', ') : ans['cuisine']}`);
   if (ans['vibe']) parts.push(`אווירה: ${Array.isArray(ans['vibe']) ? ans['vibe'].join(', ') : ans['vibe']}`);
   if (ans['price']) { parts.push(`מחיר: ${ans['price']}`); filters.priceMax = ans['price']; }
-
   return parts.join(' | ');
 }
 
